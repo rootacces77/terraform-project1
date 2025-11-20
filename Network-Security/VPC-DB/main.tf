@@ -10,7 +10,7 @@ module "vpc_prod" {
 
     ]
   #public_subnets  = ["10.16.48.0/20","10.16.112.0/20","10.16.176.0/20"]
-
+# Added some comment
   #private_subnet_ipv6_prefixes  = [0, 4, 8,1,5,9,2,6,10]
   #public_subnet_ipv6_prefixes = [3, 7, 11]
 
