@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "aws" {
-#  alias  = "network"
+  
   region = "us-east-1"
 
   assume_role {

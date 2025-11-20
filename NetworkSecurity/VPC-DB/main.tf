@@ -9,10 +9,7 @@ module "vpc_prod" {
                 "10.17.0.0/24","10.17.1.0/24","10.17.2.0/24"
 
     ]
-  #public_subnets  = ["10.16.48.0/20","10.16.112.0/20","10.16.176.0/20"]
-# Added some comment
-  #private_subnet_ipv6_prefixes  = [0, 4, 8,1,5,9,2,6,10]
-  #public_subnet_ipv6_prefixes = [3, 7, 11]
+
 
   enable_nat_gateway = false
   single_nat_gateway = false
