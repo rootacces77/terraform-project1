@@ -52,7 +52,7 @@ resource "aws_organizations_policy_attachment" "attach_region_restriction" {
 
 
 
-resource "aws_organizations_policy" "deny_root_user" {
+/*resource "aws_organizations_policy" "deny_root_user" {
   name        = "DenyRootUser"
   description = "Deny all actions when the principal is the account root user."
   type        = "SERVICE_CONTROL_POLICY"
@@ -79,4 +79,4 @@ resource "aws_organizations_policy" "deny_root_user" {
 resource "aws_organizations_policy_attachment" "attach_deny_root_user" {
   policy_id = aws_organizations_policy.deny_root_user.id
   target_id = local.org_root_id
-}
+}*/
