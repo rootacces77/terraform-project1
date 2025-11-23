@@ -1,6 +1,6 @@
 provider "aws" {
-  alias = "management"
-  region = "us-east-1"
+  alias   = "management"
+  region  = "us-east-1"
   profile = "root"
 }
 

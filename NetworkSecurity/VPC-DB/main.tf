@@ -1,7 +1,7 @@
-module "vpc_prod" {
+module "vpc_prod_db" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "PROD-DB-VPC"
+  name = "PROD-VPC-DB"
   cidr = "10.17.0.0/16"
 
   azs             = ["us-east-1a", "us-east-1b", "us-east-1c",]
@@ -18,20 +18,12 @@ module "vpc_prod" {
   enable_dns_support   = true
 
   enable_ipv6 = false
-  #public_subnet_assign_ipv6_address_on_creation = true
-  #private_subnet_assign_ipv6_address_on_creation = true
-  #Allow ipv6 output traffic
-  #create_egress_only_igw = true
+
   
   create_igw = false
 
   enable_vpn_gateway = false
 
-
-#  public_subnet_tags = {
- # "Name" = "PROD-SBNT-PUB"
- # "Tier" = "Public"
-#}
 
 private_subnet_tags = {
   "Name" = "PROD-DB-SBNT-PRIV"
@@ -45,5 +37,11 @@ private_subnet_tags = {
   }
 }
 
-#ASDF
-#ASD
+
+#FLOWLOGS
+resource "aws_flow_log" "vpc_flow_logs" {
+  log_destination      = var.flowlogs_s3_arn
+  log_destination_type = "s3"
+  traffic_type         = "ALL"
+  vpc_id               = module.vpc_prod_db.vpc_id
+}
