@@ -52,16 +52,16 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init (Network)
-        working-directory: NetworkSecurity       # << ROOT DIR for Network stack
+        working-directory: Network       # << ROOT DIR for Network stack
         run: terraform init -input=false
 
       - name: Terraform Plan (Network)
-        working-directory: NetworkSecurity
+        working-directory: Network
         run: terraform plan -input=false
 
       - name: Terraform Apply (Network, only on main)
         if: github.ref == 'refs/heads/main'
-        working-directory: NetworkSecurity
+        working-directory: Network
         run: terraform apply -auto-approve -input=false
 
 
