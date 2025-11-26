@@ -12,4 +12,4 @@ output "security_subnets" {
 output "prod_subnets" {
   value = module.vpc_prod_app.private_subnet_arns
   description = "Prod Subnets"
-}
+} 

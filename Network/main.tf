@@ -17,20 +17,20 @@ module "vpc-app" {
 
 }
 
-/*module "vpc-peering" {
+module "vpc-peering" {
   source = "./VPC-PEERING"
 
   vpc_prod_app_id = module.vpc-app.vpc_id
   vpc_prod_db_id  = module.vpc-db.vpc_id
 
-}*/
+}
 
-/*module "ram" {
+module "ram" {
   source = "./RAM"
 
   security_subnets = module.vpc-app.security_subnets
   prod_subnets     = module.vpc-app.prod_subnets
-}*/
+}
 
 
 ####
