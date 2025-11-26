@@ -10,8 +10,9 @@ data "terraform_remote_state" "management" {
   }
 }
 
+
 locals {
-  organization_id = data.terraform_remote_state.management.outputs.organization_id
+  org_id = data.terraform_remote_state.management.outputs.org_id
 }
 
 variable "flowlogs_s3_name" {

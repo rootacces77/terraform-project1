@@ -1,3 +1,4 @@
-output "organization_id" {
-  value = data.aws_organizations_organization.organization.id
+output "org_id" {
+  value = local.org_id
+  description = "Organization ID for policies"
 }

@@ -63,10 +63,10 @@ resource "aws_s3_bucket_policy" "org_readonly" {
         Effect    : "Allow",
         Principal : "*",
         Action    : "s3:ListBucket",
-        Resource  : "${module.s3_flow_logs.s3_bucket_arn}/*",
+        Resource  : "${module.s3_flow_logs.s3_bucket_arn}"
         Condition : {
           StringEquals : {
-            "aws:PrincipalOrgID" = local.organization_id
+            "aws:PrincipalOrgID" = local.org_id
           }
         }
       },
@@ -75,10 +75,10 @@ resource "aws_s3_bucket_policy" "org_readonly" {
         Effect    : "Allow",
         Principal : "*",
         Action    : "s3:GetObject",
-        Resource  : "${module.s3_flow_logs.s3_bucket_arn}/*",
+        Resource  : "${module.s3_flow_logs.s3_bucket_arn}",
         Condition : {
           StringEquals : {
-            "aws:PrincipalOrgID" = local.organization_id
+            "aws:PrincipalOrgID" = local.org_id
           }
         }
       },
@@ -111,4 +111,4 @@ resource "aws_s3_bucket_policy" "org_readonly" {
       }
     ]
   })
-}
+} 

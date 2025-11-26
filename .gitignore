@@ -12,6 +12,8 @@ Management/.terraform/
 backend/.terraform/
 Dev/.terraform/
 Prod/.terraform/
+Network/.terraform/
+Security/.terraform/
 
 # Sensitive files (optional)
 *.tfvars
