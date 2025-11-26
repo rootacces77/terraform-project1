@@ -1,0 +1,35 @@
+name: Terraform Destroy (Network)
+
+on:
+  workflow_dispatch:   # manual trigger in GitHub UI
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  destroy-network:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: accounts/Network   # <-- adjust to your network folder
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1) Get creds in MANAGEMENT via OIDC
+      - name: Configure AWS via OIDC (Management)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
+          aws-region: us-east-1
+
+      # 2) Terraform
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Destroy (Network)
+        run: terraform destroy -auto-approve

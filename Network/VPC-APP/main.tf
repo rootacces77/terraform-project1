@@ -27,7 +27,7 @@ module "vpc_prod_app" {
   create_igw = true
 
   enable_vpn_gateway = false
-  subnet_create_before_destroy = false
+  #subnet_create_before_destroy = false
 
 
   intra_subnet_tags = {
