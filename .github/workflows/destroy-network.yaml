@@ -13,7 +13,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: /Network   # <-- adjust to your network folder
+        working-directory: Network   # <-- adjust to your network folder
 
     steps:
       - uses: actions/checkout@v4
