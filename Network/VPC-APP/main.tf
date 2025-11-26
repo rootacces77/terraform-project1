@@ -5,13 +5,14 @@ module "vpc_prod_app" {
   cidr = "10.16.0.0/16"
 
   azs             = ["us-east-1a", "us-east-1b", "us-east-1c",]
-  private_subnets = [
-                "10.16.0.0/20","10.16.64.0/20","10.16.128.0/20",
-                "10.16.16.0/20","10.16.80.0/20","10.16.144.0/20",
-                "10.16.32.0/20","10.16.96.0/20","10.16.160.0/20"
+    #Security Subnets
+  intra_subnets = ["10.16.0.0/20", "10.16.16.0/20", "10.16.32.0/20"]
 
-    ]
-  public_subnets  = ["10.16.48.0/20","10.16.112.0/20","10.16.176.0/20"]
+  private_subnets = [
+                "10.16.48.0/20","10.16.64.0/20","10.16.80.0/20",
+                "10.16.96.0/20","10.16.112.0/20","10.16.128.0/20"
+                ]
+  public_subnets  = ["10.16.144.0/20","10.16.160.0/20","10.16.176.0/20"]
 
   enable_nat_gateway = true
   single_nat_gateway = true
@@ -26,6 +27,11 @@ module "vpc_prod_app" {
 
   enable_vpn_gateway = false
 
+
+  intra_subnet_tags = {
+    Name = "PROD-APP-SBNT-SEC"
+    Tier = "Firewall"
+  }
 
   public_subnet_tags = {
   "Name" = "PROD-APP-SBNT-PUB"

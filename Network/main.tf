@@ -3,7 +3,6 @@ module "s3_logs" {
 
 }
 
-
 module "vpc-db" {
   source = "./VPC-DB"
 
@@ -25,5 +24,13 @@ module "vpc-peering" {
   vpc_prod_db_id  = module.vpc-db.vpc_id
 
 }
+
+module "ram" {
+  source = "./RAM"
+
+  security_subnets = module.vpc-app.security_subnets
+  prod_subnets     = module.vpc-app.prod_subnets
+}
+
 
 ####
