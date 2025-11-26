@@ -10,4 +10,6 @@ resource "aws_vpc_peering_connection" "foo" {
   requester {
     allow_remote_vpc_dns_resolution = true
   }
+
+  auto_accept = true
 }
