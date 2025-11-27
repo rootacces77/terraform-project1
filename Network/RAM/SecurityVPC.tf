@@ -13,7 +13,7 @@ resource "aws_ram_principal_association" "security_access" {
 
 
 resource "aws_ram_resource_association" "security_subnets" {
-  count              = length(var.security_subnets)
+  count              = length(local.prod_security_subnets)
   resource_share_arn = aws_ram_resource_share.prod_subnets_shared.arn
-  resource_arn       = var.security_subnets[count.index]
+  resource_arn       = local.prod_security_subnets[count.index]
 }
