@@ -1,0 +1,15 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for cron-role
+
+- name: Task1
+  ansible.builtin.include_tasks: webserver_cron.yaml
+  when: "'webserver' in group_names"
+
+- name: Task2
+  ansible.builtin.include_tasks: database_cron.yaml
+  when: "'database' in group_names"
+
+- name: Task3
+  ansible.builtin.include_tasks: bastion_cron.yaml
+  when: "'bastion' in group_names"

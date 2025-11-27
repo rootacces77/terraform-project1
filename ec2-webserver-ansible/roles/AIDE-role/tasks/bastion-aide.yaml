@@ -1,0 +1,11 @@
+- name: Create AIDE Config
+  ansible.builtin.template:
+    src: bastion-aide.conf.j2
+    dest: /etc/aide/aide.conf
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Setup AIDE database
+  ansible.builtin.command: 'aide --init --config /etc/aide/aide.conf'
+  when: aide_bastion_init == true

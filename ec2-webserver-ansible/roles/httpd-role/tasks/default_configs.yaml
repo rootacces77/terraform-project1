@@ -1,0 +1,25 @@
+- name: Remove autoindex
+  ansible.builtin.file:
+    path: /etc/httpd/conf.d/autoindex.conf
+    state: absent
+
+- name: Remove ssl
+  ansible.builtin.file:
+    path: /etc/httpd/conf.d/ssl.conf
+    state: absent
+
+- name: Remove userdir
+  ansible.builtin.file:
+    path: /etc/httpd/conf.d/userdir.conf
+    state: absent
+
+- name: Remove welcome
+  ansible.builtin.file:
+    path: /etc/httpd/conf.d/welcome.conf
+    state: absent
+
+- name: Disable default Listen
+  ansible.builtin.replace:
+    regexp: "^Listen 80"
+    replace: "#Listen 80"
+    path: /etc/httpd/conf/httpd.conf

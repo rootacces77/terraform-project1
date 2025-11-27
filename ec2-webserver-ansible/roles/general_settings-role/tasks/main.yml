@@ -1,0 +1,19 @@
+---
+# tasks file for general_settings-role
+- name: Task1
+  ansible.builtin.import_tasks: general_settings.yaml
+
+- name: Task2
+  ansible.builtin.import_tasks: create_dirs.yaml
+
+- name: Task3
+  ansible.builtin.include_tasks: database_settings.yaml
+  when: "'database' in group_names"
+
+- name: Task4
+  ansible.builtin.include_tasks: bastion_settings.yaml
+  when: "'bastion' in group_names"
+
+- name: Task5
+  ansible.builtin.include_tasks: webserver_settings.yaml
+  when: "'webserver' in group_names"

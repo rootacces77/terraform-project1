@@ -1,0 +1,28 @@
+- name: Set Fcontext
+  community.general.sefcontext:
+    setype: 'httpd_sys_content_t'
+    state: present
+    target: '{{httpd_data_path}}(/.*)?'
+  notify:
+    - Restorecon httpd
+
+- name: Set fcontext
+  community.general.sefcontext:
+    setype: 'httpd_config_t'
+    state: present
+    target: '/certs(/.*)?'
+  notify:
+    - Restorecon certs
+
+- name: Add port
+  community.general.seport:
+    ports: "{{httpd_port}}"
+    proto: tcp
+    setype: 'http_port_t'
+    state: present    
+
+- name: Add Boolean
+  ansible.posix.seboolean:
+    name: 'httpd_can_network_connect'
+    persistent: true
+    state: true

@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for AIDE-role
+
+aide_database_init: true
+aide_bastion_init: true
+aide_webserver_init: true

@@ -1,0 +1,26 @@
+- name: Main file
+  hosts: webserver
+  gather_facts: true
+  become: true
+  vars_files:
+    - vars/main.yaml
+  roles:
+    - role: adduser-role
+    - role: general_settings-role
+    - role: sshd-role
+    - role: firewalld-role
+    - role: chrony-role
+    - role: httpd-role 
+    - role: cron-role
+    - role: sysctl-role
+    - role: AIDE-role
+  tasks:
+    - name: Sshd
+      ansible.builtin.include_role:
+        name: sshd-role
+        tasks_from: restart_sshd.yaml 
+    - name: Firewall
+      ansible.builtin.include_role:
+        name: firewalld-role
+        tasks_from: reload_firewalls.yaml
+

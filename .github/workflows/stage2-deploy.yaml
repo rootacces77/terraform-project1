@@ -2,8 +2,6 @@ name: Terraform Deploy (All Accounts)
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
 
 permissions:
   id-token: write
@@ -24,16 +22,16 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init (Management)
-        working-directory: Management                 # << ROOT DIR for Prod stack
+        working-directory: Management/Stage2                # << ROOT DIR for Prod stack
         run: terraform init -input=false
 
       - name: Terraform Plan (Management)
-        working-directory: Management
+        working-directory: Management/Stage2
         run: terraform plan -input=false
 
       - name: Terraform Apply (Management, only on main)
         if: github.ref == 'refs/heads/main'
-        working-directory: Management
+        working-directory: Management/Stage2
         run: terraform apply -auto-approve -input=false
 
 
@@ -43,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure AWS via OIDC (Management)
+      - name: Configure AWS via OIDC (Network)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
@@ -52,44 +50,16 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init (Network)
-        working-directory: Network       # << ROOT DIR for Network stack
+        working-directory: Network/Stage2        # << ROOT DIR for Network stack
         run: terraform init -input=false
 
       - name: Terraform Plan (Network)
-        working-directory: Network
+        working-directory: Network/Stage2 
         run: terraform plan -input=false
 
       - name: Terraform Apply (Network, only on main)
         if: github.ref == 'refs/heads/main'
-        working-directory: Network
-        run: terraform apply -auto-approve -input=false
-
-
-  dev:
-    runs-on: ubuntu-latest
-    needs: network             # optional: wait for network job
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure AWS via OIDC (Management)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
-          aws-region: us-east-1
-
-      - uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init (Dev)
-        working-directory: Dev                  # << ROOT DIR for Dev stack
-        run: terraform init -input=false
-
-      - name: Terraform Plan (Dev)
-        working-directory: Dev
-        run: terraform plan -input=false
-
-      - name: Terraform Apply (Dev, only on main)
-        if: github.ref == 'refs/heads/main'
-        working-directory: Dev
+        working-directory: Network/Stage2 
         run: terraform apply -auto-approve -input=false
 
 
@@ -99,7 +69,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure AWS via OIDC (Management)
+      - name: Configure AWS via OIDC (Production)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
@@ -108,16 +78,16 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init (Prod)
-        working-directory: Prod                 # << ROOT DIR for Prod stack
+        working-directory: Prod/Stage2                 # << ROOT DIR for Prod stack
         run: terraform init -input=false
 
       - name: Terraform Plan (Prod)
-        working-directory: Prod
+        working-directory: Prod/Stage2 
         run: terraform plan -input=false
 
       - name: Terraform Apply (Prod, only on main)
         if: github.ref == 'refs/heads/main'
-        working-directory: Prod
+        working-directory: Prod/Stage2 
         run: terraform apply -auto-approve -input=false
 
 
@@ -127,7 +97,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure AWS via OIDC (Management)
+      - name: Configure AWS via OIDC (Security)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
@@ -136,15 +106,15 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init (Security)
-        working-directory: Security                 # << ROOT DIR for Prod stack
+        working-directory: Security/Stage2                  # << ROOT DIR for Prod stack
         run: terraform init -input=false
 
       - name: Terraform Plan (Security)
-        working-directory: Security
+        working-directory: Security/Stage2 
         run: terraform plan -input=false
 
       - name: Terraform Apply (Security, only on main)
         if: github.ref == 'refs/heads/main'
-        working-directory: Security
+        working-directory: Security/Stage2
         run: terraform apply -auto-approve -input=false
 

@@ -1,0 +1,10 @@
+---
+# handlers file for selinux-role
+- name: Restorecon mariadb
+  ansible.builtin.command: 'restorecon -Rv {{mariadb_path}}'
+
+- name: Restorecon httpd
+  ansible.builtin.command: 'restorecon -Rv {{httpd_data_path}}'
+
+- name: Restorecon certs
+  ansible.builtin.command: 'restorecon -Rv /certs'

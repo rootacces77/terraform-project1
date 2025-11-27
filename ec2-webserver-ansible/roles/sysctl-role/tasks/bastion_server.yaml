@@ -1,0 +1,9 @@
+- name: Create sysctl file
+  ansible.builtin.copy:
+    src: bastion-sysctl.conf
+    dest: /etc/sysctl.d/bastion-sysctl.conf
+    mode: '0644'
+    owner: root
+    group: root
+  notify:
+    - Reload sysctl

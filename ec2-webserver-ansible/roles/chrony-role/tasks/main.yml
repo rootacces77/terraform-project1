@@ -1,0 +1,13 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for chrony-role
+- name: Task0
+  ansible.builtin.import_tasks: install-chrony.yaml
+
+- name: Task1
+  ansible.builtin.include_tasks: server-chrony.yaml
+  when: "'bastion' in group_names"
+
+- name: Task2
+  ansible.builtin.include_tasks: client-chrony.yaml
+  when: "'database' in group_names or 'webserver' in group_names"

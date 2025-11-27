@@ -1,0 +1,27 @@
+- name: Setup SeLinux
+  ansible.builtin.import_role:
+    name: selinux-role
+    tasks_from: sshd.yaml
+  when: ansible_facts['distribution'] == "RedHat"
+
+- name: Setup sshd config
+  ansible.builtin.template:
+    src: server_config.conf.j2
+    dest: /etc/ssh/sshd_config.d/server_config.conf
+    mode: '0640'
+    owner: root
+    group: root
+  when: "'bastion' not in group_names"
+  
+- name: Setup sshd config
+  vars:
+    sshd_tcp_forwd: "yes"
+    sshd_gw_ports: "no"
+    sshd_subsystem: "/usr/lib/openssh/sftp-server"
+  ansible.builtin.template:
+    src: server_config.conf.j2
+    dest: /etc/ssh/sshd_config
+    mode: '0640'
+    owner: root
+    group: root
+  when: "'bastion' in group_names"

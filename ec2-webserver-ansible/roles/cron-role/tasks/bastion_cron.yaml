@@ -1,0 +1,24 @@
+- name: Copy scripts
+  ansible.builtin.copy:
+    src: "scripts/bastion/"
+    dest: "/scripts/"
+    owner: root
+    group: root
+    mode: '0744'
+
+- name: Install expect language
+  ansible.builtin.apt:
+    name: expect
+    state: present
+    update_cache: true
+
+- name: Schedule a job 1
+  ansible.builtin.cron:
+    name: Update Script
+    job: /scripts/basic-update2.sh
+    user: root
+    day: "*/15"
+    hour: 04
+    minute: 00
+    state: present
+

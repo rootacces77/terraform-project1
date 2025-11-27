@@ -1,0 +1,49 @@
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+    chain input {
+        type filter hook input priority 0;
+
+        # Allow loopback traffic
+        iif "lo" accept
+
+        # Allow established and related connections
+        ct state established,related accept
+
+        # Allow SSH on port 2222
+        tcp dport {{sshd_port}} accept
+
+        # Allow HTTPS (port 443)
+        tcp dport {{https_port}} accept
+        
+        #Allow HTTP
+        #tcp dport {{http_port}} accept
+
+        # Drop everything else
+        counter drop
+    }
+
+    chain forward {
+        type filter hook forward priority 0;
+
+
+        # Allow forwarding of established/related connections
+        ct state established,related accept
+
+        # Allow forwarding from public interface to internal network (e.g., HTTP)
+       # ip saddr 0.0.0.0/0 ip daddr 172.16.0.0/24 tcp dport 80 accept
+
+        # Allow traffic forwarded from public to private interface (example)
+        iifname "{{bastion_pub_iface}}" oifname "{{bastion_priv_iface}}" ip protocol tcp tcp dport {{https_port}} accept
+        iifname "{{bastion_priv_iface}}" oifname "{{bastion_pub_iface}}" ip protocol tcp tcp dport {{https_port}} accept
+        # Drop everything else
+        counter drop
+    }
+
+    chain output {
+        type filter hook output priority 0;
+        accept
+    }
+}

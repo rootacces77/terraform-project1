@@ -1,0 +1,30 @@
+#Overall vars: 
+user_name: "ansible"
+user_password: "{{root | password_hash('sha512' ) }}"
+user_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhuCNqtfB/3G6kC6CYLuP1+7xQSQXnJ8oFeeLoLR0sO proj>
+db_user: "DBUSER"
+db_password: "DBPASSWORD"
+
+db_device_path: "/dev/sdb"
+
+bastion_pub_iface: "enp0s3"
+bastion_priv_iface: "enp0s8"
+#webserver_iface1: ""
+#database_iface2: ""
+
+database_ip: 'DBHOST'
+webserver_domain: 'project-practice77.com'
+webserver_alias: "www.project-practice77.com"
+bastion_internal_ip: '192.168.100.101'
+bastion_external_ip: '192.168.0.30'
+
+sshd_port: 2222
+https_port: 443
+http_port: 80
+mariadb_port: 3306
+httpd_port: 8080
+
+#Path needed for SeLinux and httpd ( dont change )
+httpd_data_path: "/web-data/sakila-demo"
+
+

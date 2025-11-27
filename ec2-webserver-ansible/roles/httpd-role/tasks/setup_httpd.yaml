@@ -1,0 +1,93 @@
+- name: Install system req
+  ansible.builtin.dnf:
+    name: "{{httpd_req}}"
+    state: present
+
+- name: Install pip req
+  ansible.builtin.pip:
+    name: "{{httpd_pip_req}}"
+    state: present
+
+- name: Delete default configs
+  ansible.builtin.import_tasks: default_configs.yaml    
+
+- name: Setup mod_security
+  ansible.builtin.import_tasks: mod_security.yaml
+
+- name: Create cert DIR
+  ansible.builtin.file:
+    path: /certs
+    state: directory
+    owner: root 
+    group: root
+    mode: '0755'
+
+- name: Generate private key
+  community.crypto.openssl_privatekey:
+    path: /certs/webserver.key
+    type: RSA
+    size: 4096
+    state: present
+    mode: '0600'
+
+- name: Generate CSR with CN
+  community.crypto.openssl_csr:
+    path: /certs/webserver.csr
+    privatekey_path: /certs/webserver.key
+    common_name: "{{webserver_ip}}"
+
+- name: Generate cert
+  community.crypto.x509_certificate:
+    path: /certs/webserver.crt
+    privatekey_path: /certs/webserver.key
+    provider: selfsigned
+    selfsigned_not_after: "+365d"
+    mode: '0644'
+
+- name: Create files dir
+  ansible.builtin.file:
+    state: directory
+    path: /web-data
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy website files
+  ansible.builtin.copy:
+    src: "web-data/"
+    dest: "/web-data/"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Generate application.py
+  ansible.builtin.template:
+    src: sakila_demo.py.j2
+    dest: /web-data/sakila-demo/sakila_demo.py
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Set SeLinux
+  ansible.builtin.include_role:
+    name: selinux-role
+    tasks_from: httpd.yaml
+
+- name: Flush Handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Generate Config
+  ansible.builtin.template:
+    src: sakila.conf.j2
+    dest: /etc/httpd/conf.d/sakila.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Start and Enable httpd
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+
+

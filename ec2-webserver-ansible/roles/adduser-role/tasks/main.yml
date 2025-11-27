@@ -1,0 +1,34 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for adduser-role
+- name: Create User
+  ansible.builtin.user:
+    name: "{{user_name}}"
+    create_home: true
+    expires: -1
+    groups: sudo
+    shell: /bin/bash
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+- name: Create User
+  ansible.builtin.user:
+    name: "{{user_name}}"
+    create_home: true
+    expires: -1
+    groups: wheel
+    shell: /bin/bash
+    state: present
+  when: ansible_facts['os_family'] == "RedHat"
+- name: Add user to sudo
+  ansible.builtin.copy:
+    dest: '/etc/sudoers.d/ansible-user'
+    content: "{{user_name}} ALL=(ALL) NOPASSWD: ALL"
+    mode: '0644'
+    owner: root
+    group: root
+- name: Add ssh key
+  ansible.posix.authorized_key:
+    user: "{{user_name}}"
+    key: "{{user_public_key}}"
+    manage_dir: true
+    state: present 

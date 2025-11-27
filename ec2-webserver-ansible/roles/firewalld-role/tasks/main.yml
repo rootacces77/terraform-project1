@@ -1,0 +1,13 @@
+---
+# tasks file for firewalld2-role
+- name: Setup database firewall
+  ansible.builtin.include_tasks: database_firewall.yaml
+  when: "'database' in group_names"
+
+- name: Setup bastion firewall
+  ansible.builtin.include_tasks: bastion_firewall.yaml
+  when: "'bastion' in group_names"
+
+- name: Setup webserver firewall
+  ansible.builtin.include_tasks: webserver_firewall.yaml
+  when: "'webserver' in group_names"

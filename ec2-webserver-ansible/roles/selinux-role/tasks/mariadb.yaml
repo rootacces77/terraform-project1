@@ -1,0 +1,15 @@
+- name: Set Fcontext
+  community.general.sefcontext:
+    setype: mysqld_db_t
+    state: present
+    target: '{{mariadb_path}}(/.*)?'
+  notify:
+    - Restorecon mariadb
+    
+- name: Set fcontext
+  community.general.sefcontext:
+    setype: mysqld_etc_t 
+    state: present
+    target: '/certs(/.*)?'
+  notify:
+    - Restorecon certs

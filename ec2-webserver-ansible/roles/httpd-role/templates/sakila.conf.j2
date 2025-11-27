@@ -1,0 +1,19 @@
+Listen {{httpd_port}}
+
+<VirtualHost *:{{httpd_port}}>
+    ServerName {{webserver_ip}}
+    ServerAlias
+
+    WSGIDaemonProcess sakila python-path={{httpd_data_path}}:/usr/lib/python3.9/site-packages
+    WSGIProcessGroup sakila
+    WSGIScriptAlias / {{httpd_data_wsgi}}
+    
+    
+
+    <Directory {{httpd_data_path}}>
+        Require all granted
+    </Directory>
+
+    ErrorLog /var/log/httpd/sakila_error.log
+    CustomLog /var/log/httpd/sakila_access.log combined
+</VirtualHost>
