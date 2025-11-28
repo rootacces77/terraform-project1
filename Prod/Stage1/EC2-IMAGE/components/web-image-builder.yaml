@@ -10,7 +10,7 @@ phases:
         inputs:
           commands:
             - dnf -y update
-            - dnf -y install ansible python3 git
+            - dnf -y install ansible-core python3 git
             - ansible-galaxy collection install ansible.posix community.general
 
       - name: clone_and_run_playbook
