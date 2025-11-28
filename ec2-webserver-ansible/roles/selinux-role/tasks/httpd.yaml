@@ -6,14 +6,6 @@
   notify:
     - Restorecon httpd
 
-- name: Set fcontext
-  community.general.sefcontext:
-    setype: 'httpd_config_t'
-    state: present
-    target: '/certs(/.*)?'
-  notify:
-    - Restorecon certs
-
 - name: Add port
   community.general.seport:
     ports: "{{httpd_port}}"
