@@ -1,0 +1,4 @@
+- name: Install AIDE
+  ansible.builtin.package:
+    name: aide
+    state: present

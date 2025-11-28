@@ -1,5 +1,5 @@
 - name: Main file
-  hosts: webserver
+  hosts: all
   gather_facts: true
   become: true
   vars_files:
@@ -9,7 +9,7 @@
     - role: general_settings-role
     - role: sshd-role
     - role: chrony-role
-    - role: httpd-role 
+    - role: mariadb-role
     - role: cron-role
     - role: sysctl-role
     - role: AIDE-role

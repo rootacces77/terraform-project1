@@ -1,0 +1,10 @@
+---
+# vars file for mysql-role
+
+mariadb_install: ['mariadb-server','python-PyMySQL','python3-cryptography']
+mariadb_socket: /database-data/mysql/mysql.sock
+mariadb_datadir: /database-data/mysql
+
+database_name: sakila
+mariadb_src_files: sakila-db
+mariadb_dest_files: /database-data/

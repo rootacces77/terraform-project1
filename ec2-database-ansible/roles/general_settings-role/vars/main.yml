@@ -1,0 +1,9 @@
+---
+# vars file for general_settings-role
+
+general_database_hostname: "database-server"
+general_timezone: "Europe/Belgrade"
+
+general_bastion_hostname: "bastion-server"
+
+general_webserver_hostname: "webserver-server"

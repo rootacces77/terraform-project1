@@ -1,0 +1,4 @@
+- name: Set Hostname
+  ansible.builtin.hostname:
+    name: "{{general_bastion_hostname}}" 
+

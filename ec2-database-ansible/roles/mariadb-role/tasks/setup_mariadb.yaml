@@ -1,0 +1,93 @@
+- name: Install Mariadb
+  ansible.builtin.dnf:
+    name: "{{mariadb_install}}" 
+    state: present
+
+- name: Create mysql dir
+  ansible.builtin.file:
+    state: directory
+    path: /database-data/mysql
+    owner: mysql
+    group: mysql
+    mode: '2750'
+
+- name: Create certs dir
+  ansible.builtin.file:
+    state: directory
+    path: /certs
+    owner: mysql
+    group: mysql
+    mode: '0755'
+
+- name: Generate private key
+  community.crypto.openssl_privatekey:
+    path: /certs/database.key
+    type: RSA
+    size: 4096
+    state: present
+    mode: '0600'
+    owner: mysql
+
+- name: Generate CSR with CN
+  community.crypto.openssl_csr:
+    path: /certs/database.csr
+    privatekey_path: /certs/database.key
+    common_name: "{{database_ip}}"
+
+- name: Generate cert
+  community.crypto.x509_certificate:
+    path: /certs/database.crt
+    privatekey_path: /certs/database.key
+    provider: selfsigned
+    selfsigned_not_after: "+365d"
+    mode: '0644'
+
+- name: Call SeLinux
+  ansible.builtin.import_role:
+    name: selinux-role
+    tasks_from: mariadb.yaml
+
+- name: Flush Handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Create Config File
+  ansible.builtin.template:
+    src: server.cnf.j2
+    dest: /etc/my.cnf.d/server.cnf
+    mode: '0644'
+    owner: root
+    group: root
+  notify:
+    - Restart Mariadb
+
+
+- name: Start and Enable Mariadb
+  ansible.builtin.service:
+    name: mariadb
+    state: started
+    enabled: true
+
+- name: Configure root user
+  community.mysql.mysql_user:
+    host_all: true
+    name: root
+    password: "{{db_password}}"
+    state: present
+    update_password: always
+    login_unix_socket: "{{mariadb_socket}}"
+  ignore_errors: true
+
+- name: Create User
+  community.mysql.mysql_user:
+    name: "{{db_user}}"
+    password: "{{db_password}}"
+    state: present
+    priv: 'sakila.*:ALL'
+    host: "{{webserver_ip}}"
+    update_password: always
+    login_unix_socket: "{{mariadb_socket}}"
+    login_user: root
+    login_password: "{{db_password}}"
+
+- name: Import deploy_database.yaml
+  ansible.builtin.import_tasks: deploy_database.yaml

@@ -1,0 +1,5 @@
+---
+# tasks file for sshd-role
+
+- name: Task1
+  ansible.builtin.include_tasks: setup_sshd.yaml

@@ -1,0 +1,32 @@
+#!/usr/bin/expect -f
+#Script to allow rules for apparmor services
+
+set timeout 20
+
+spawn sudo aa-logprof
+
+expect {
+    -re {\[\d+ - .*?\]} {
+        send "a\r"
+        exp_continue
+    }
+    -re {\(A\)llow.*} {
+        send "a\r"
+        exp_continue
+    }
+    -re {\(S\)ave.*} {
+        send "s\r"
+        exp_continue
+    }
+    -re {Save Changes.*\[(S)\]ave.*} {
+        send "s\r"
+        exp_continue
+    }
+    eof {
+        exit 0
+    }
+    timeout {
+        puts "Timed out waiting for prompt"
+        exit 1
+    }
+}

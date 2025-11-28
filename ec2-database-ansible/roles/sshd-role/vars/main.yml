@@ -1,0 +1,26 @@
+---
+# vars file for sshd-role
+sshd_pam: "yes"
+sshd_root_login: "no"
+sshd_empty: "no"
+sshd_pass_auth: "no"
+sshd_key_auth: "yes"
+
+sshd_users: "{{user_name}}"
+sshd_groups: ""
+
+sshd_dns: "no"
+sshd_max_auth: 3
+sshd_sessions: 10
+sshd_alive_int: 60
+sshd_alive_max: 3
+sshd_grace: 60
+
+sshd_tcp_forwd: "no"
+sshd_socks: "no"
+sshd_gw_ports: "no"
+sshd_permit: "any"
+
+sshd_x11: "no"
+
+sshd_subsystem: "internal-sftp"

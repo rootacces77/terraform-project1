@@ -1,0 +1,9 @@
+- name: Setup Config file
+  ansible.builtin.template:
+    src: client-chrony.conf.j2
+    dest: /etc/chrony.conf
+    mode: '0644'
+    owner: root
+    group: root
+  notify:
+    - Restart chrony

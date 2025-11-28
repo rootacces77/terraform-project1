@@ -1,0 +1,9 @@
+- name: Create Scripts dir
+  ansible.builtin.file:
+    state: directory
+    path: /scripts
+    owner: root
+    group: root
+    mode: '0755'
+
+    

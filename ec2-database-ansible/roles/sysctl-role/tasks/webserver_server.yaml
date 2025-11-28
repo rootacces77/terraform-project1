@@ -1,0 +1,9 @@
+- name: Create sysctl file
+  ansible.builtin.copy:
+    src: webserver-sysctl.conf
+    dest: /etc/sysctl.d/webserver-sysctl.conf
+    mode: '0644'
+    owner: root
+    group: root
+  notify:
+    - Reload sysctl

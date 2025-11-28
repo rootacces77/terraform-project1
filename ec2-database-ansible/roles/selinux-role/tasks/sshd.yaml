@@ -1,0 +1,6 @@
+- name: Add custom port
+  community.general.seport:
+    ports: "{{sshd_port}}"
+    proto: "{{sshd_proto}}"
+    setype: "ssh_port_t"
+    state: present

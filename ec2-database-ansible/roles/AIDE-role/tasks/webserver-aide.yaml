@@ -1,0 +1,11 @@
+- name: Create AIDE Config
+  ansible.builtin.template:
+    src: webserver-aide.conf.j2
+    dest: /etc/aide.conf
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Setup AIDE webserver
+  ansible.builtin.command: 'aide --init'
+  when: aide_webserver_init == true

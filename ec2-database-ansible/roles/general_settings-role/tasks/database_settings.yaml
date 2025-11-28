@@ -1,0 +1,11 @@
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{general_database_hostname}}"
+
+- name: Get tuned profile
+  ansible.builtin.command: 'tuned-adm active'
+  register: tuned_profile
+
+- name: Set tuned profile
+  ansible.builtin.command: 'tuned-adm profile aws'
+  when: "'aws' not in tuned_profile.stdout"

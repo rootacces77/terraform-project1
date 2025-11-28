@@ -1,0 +1,34 @@
+Port			{{sshd_port}}
+
+UsePAM			{{sshd_pam}}
+PermitRootLogin		{{sshd_root_login}}
+PermitEmptyPasswords	{{sshd_empty}}
+PasswordAuthentication	{{sshd_pass_auth}}
+PubkeyAuthentication    {{sshd_key_auth}}
+
+AllowUsers		{{sshd_users}}
+#AllowGroups             {{sshd_groups}}
+
+UseDNS			{{sshd_dns}}
+MaxAuthTries            {{sshd_max_auth}}
+MaxSessions		{{sshd_sessions}}
+#After how many seconds of inactivity to send a check packet
+ClientAliveInterval 	{{sshd_alive_int}}
+#After how many packets to disconnect user
+ClientAliveCountMax 	{{sshd_alive_max}}
+#Time allowed for authentication before disconnect
+LoginGraceTime		{{sshd_grace}}
+
+
+#PortForwarding
+AllowTcpForwarding 	{{sshd_tcp_forwd}}
+#For SOCKS
+PermitTunnel            {{sshd_socks}}
+#Controls if others can connect to forwarded ports		
+GatewayPorts		{{sshd_gw_ports}}
+#Restricts what remote hosts/ports the user can forward to (default: any)
+PermitOpen              {{sshd_permit}}
+
+X11Forwarding		{{sshd_x11}}
+
+Subsystem sftp {{sshd_subsystem}}

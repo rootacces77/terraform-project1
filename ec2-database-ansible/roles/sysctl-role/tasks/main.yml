@@ -1,0 +1,15 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for sysctl-role
+
+- name: Setup webserver sysctl
+  ansible.builtin.include_tasks: webserver_server.yaml
+  when: "'webserver' in group_names"
+
+- name: Setup database sysctl
+  ansible.builtin.include_tasks: database_server.yaml
+  when: "'database' in group_names"
+
+- name: Setup bastion sysctl 
+  ansible.builtin.include_tasks: bastion_server.yaml
+  when: "'bastion' in group_names"

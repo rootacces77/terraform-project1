@@ -1,0 +1,5 @@
+---
+# tasks file for mysql-role
+- name: Task1
+  ansible.builtin.import_tasks: setup_mariadb.yaml
+  when: "'database' in group_names"
