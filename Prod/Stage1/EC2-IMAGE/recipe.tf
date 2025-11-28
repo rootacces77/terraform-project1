@@ -1,5 +1,5 @@
 
-/*data "aws_ami" "rhel9" {
+data "aws_ami" "rhel9" {
   most_recent = true
 
   owners = ["309956199498"]
@@ -24,9 +24,9 @@
     values = ["ebs"]
   }
   
-}*/
+}
 
-data "aws_ami" "al2023" {
+/*data "aws_ami" "al2023" {
   most_recent = true
 
   # Amazon-owned public AMIs
@@ -54,7 +54,7 @@ data "aws_ami" "al2023" {
     name   = "root-device-type"
     values = ["ebs"]
   }
-}
+} */
 
 #WEBSERVER IMAGE BUILDER RECIPE
 resource "aws_imagebuilder_component" "web_build_image" {
@@ -68,7 +68,7 @@ resource "aws_imagebuilder_component" "web_build_image" {
 resource "aws_imagebuilder_image_recipe" "web_recipe" {
   name         = "webserver-ami"
   version      = "1.0.0"
-  parent_image = data.aws_ami.al2023.id
+  parent_image = data.aws_ami.rhel9.id
 
   component {
     component_arn = aws_imagebuilder_component.web_build_image.arn
@@ -90,7 +90,7 @@ resource "aws_imagebuilder_component" "db_build_image" {
 resource "aws_imagebuilder_image_recipe" "db_recipe" {
   name         = "database-ami"
   version      = "1.0.0"
-  parent_image = data.aws_ami.al2023.id
+  parent_image = data.aws_ami.rhel9.id
 
   component {
     component_arn = aws_imagebuilder_component.db_build_image.arn
