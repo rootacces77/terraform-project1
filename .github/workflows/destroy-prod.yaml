@@ -32,4 +32,4 @@ jobs:
         run: terraform init -input=false
 
       - name: Terraform Destroy (Prod)
-        run: terraform destroy -auto-approve 
+        run: terraform destroy -auto-approve -target=module.ec2-image-builder
