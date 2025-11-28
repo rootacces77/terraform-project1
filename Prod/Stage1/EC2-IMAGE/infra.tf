@@ -19,6 +19,11 @@ resource "aws_iam_role_policy_attachment" "builder_attach" {
   policy_arn = "arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilder"
 }
 
+resource "aws_iam_role_policy_attachment" "builder_ssm_core" {
+  role       = aws_iam_role.builder_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
 resource "aws_iam_instance_profile" "builder_profile" {
   name = "EC2ImageBuilderInstanceProfile"
   role = aws_iam_role.builder_role.name

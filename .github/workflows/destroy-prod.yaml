@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  destroy-network:
+  destroy-prod:
     runs-on: ubuntu-latest
 
     defaults:
