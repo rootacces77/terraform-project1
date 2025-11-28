@@ -12,7 +12,7 @@ resource "aws_ram_principal_association" "prod_access" {
 }
 
 
-resource "aws_ram_resource_association" "firewall_subnets" {
+resource "aws_ram_resource_association" "prod_subnets" {
   count              = length(var.prod_private_subnets)
   resource_share_arn = aws_ram_resource_share.prod_subnets_shared.arn
   resource_arn       = var.prod_private_subnets[count.index]

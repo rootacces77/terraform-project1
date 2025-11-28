@@ -21,15 +21,18 @@ locals {
 
 variable "prod_security_subnets" {
   type = list(string)
-  description = "Subnets ARNS"
+  description = "PROD APP Subnets ARNS"
 }
 
 variable "prod_private_subnets" {
   type = list(string)
-  description = "Subnets ARNS"
+  description = "PROD APP Subnets ARNS"
 }
 
-
+variable "prod_db_subnets" {
+  type = list(string)
+  description = "PROD DB Subnets ARNS"
+}
 
 
 
