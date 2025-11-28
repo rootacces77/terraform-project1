@@ -1,4 +1,4 @@
-name: ImageBuilder-AnsibleWeb
+name: ImageBuilder-AnsibleDB
 description: Build Image using Ansible
 schemaVersion: 1.0
 
