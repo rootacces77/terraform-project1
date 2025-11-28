@@ -1,4 +1,0 @@
----
-# vars file for firewalld2-role
-database_zone: "database-zone"
-webserver_zone: "webserver-zone"

@@ -12,7 +12,7 @@ bastion_priv_iface: "enp0s8"
 #webserver_iface1: ""
 #database_iface2: ""
 
-database_ip: 'DBHOST'
+database_ip: 'database.project-practice77.com'
 webserver_domain: 'project-practice77.com'
 webserver_alias: "www.project-practice77.com"
 bastion_internal_ip: '192.168.100.101'

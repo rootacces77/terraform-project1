@@ -3,7 +3,7 @@ resource "aws_imagebuilder_component" "build_image" {
   name       = "build-image"
   platform   = "Linux"
   version    = "1.0.0"
-  data       = file("${path.module}/components/image-builder.yml")
+  data       = file("${path.module}/components/image-builder.yaml")
 }
 
 
@@ -21,16 +21,26 @@ resource "aws_imagebuilder_image_recipe" "web_recipe" {
 data "aws_ami" "rhel9" {
   most_recent = true
 
-  # Adjust owner to the correct one for RHEL in your account/Marketplace
-  owners = ["aws-marketplace"]
+  owners = ["309956199498"]
 
   filter {
     name   = "name"
-    values = ["RHEL-9*"]  # use the exact pattern you see in EC2 -> AMIs
+    values = ["RHEL-9.*_HVM-*-x86_64-*-Hourly2-GP*"]
   }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+  
 }

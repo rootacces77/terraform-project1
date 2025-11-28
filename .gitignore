@@ -9,11 +9,19 @@ crash.log
 .terraform/
 .terraform.lock.hcl
 Management/.terraform/
+Management/Stage1/.terraform/
+Management/Stage2/.terraform/
 backend/.terraform/
 Dev/.terraform/
 Prod/.terraform/
+Prod/Stage1/.terraform/
+Prod/Stage2/.terraform/
 Network/.terraform/
+Network/Stage1/.terraform/
+Network/Stage2/.terraform/
 Security/.terraform/
+Security/Stage1/.terraform/
+Security/Stage2/.terraform/
 
 # Sensitive files (optional)
 *.tfvars
