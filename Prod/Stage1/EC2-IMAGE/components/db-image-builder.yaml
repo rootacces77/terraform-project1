@@ -29,7 +29,7 @@ phases:
 
             # Go into the Ansible directory and run playbook locally on this instance
             - cd /tmp/terraform-project1/ec2-database-ansible
-            - sudo ansible-playbook playbooks/main.yml
+            - sudo ansible-playbook playbooks/main.yaml
 
       - name: cleanup
         action: ExecuteBash
