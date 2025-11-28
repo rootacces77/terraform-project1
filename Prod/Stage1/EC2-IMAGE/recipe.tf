@@ -13,7 +13,7 @@ resource "aws_imagebuilder_image_recipe" "web_recipe" {
   parent_image = data.aws_ami.rhel9.id
 
   component {
-    component_arn = aws_imagebuilder_component.build_image
+    component_arn = aws_imagebuilder_component.build_image.arn
   }
 
 }
