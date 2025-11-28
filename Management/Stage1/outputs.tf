@@ -13,3 +13,8 @@ output "prod_account_id" {
   value = module.organization.prod_account_id
   description = "Prod Account ID"
 }
+
+output "network_account_id" {
+  value = module.organization.prod_account_id
+  description = "Prod Account ID"
+}
