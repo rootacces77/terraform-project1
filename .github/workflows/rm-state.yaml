@@ -1,4 +1,4 @@
-name: Terraform Destroy (Network)
+name: RM State (Prod)
 
 on:
   workflow_dispatch:   # manual trigger in GitHub UI
@@ -8,12 +8,12 @@ permissions:
   contents: read
 
 jobs:
-  destroy-network:
+  rm-state:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: Network/Stage1   # <-- adjust to your network folder
+        working-directory: Prod/Stage1   # <-- adjust to your network folder
 
     steps:
       - uses: actions/checkout@v4
@@ -31,5 +31,5 @@ jobs:
       - name: Terraform Init
         run: terraform init -input=false
 
-      - name: Terraform Destroy (Network)
-        run: terraform destroy -auto-approve 
+      - name: Terraform Destroy (Prod)
+        run: terraform state rm 'module.ec2-image-builder.aws_imagebuilder_image.web_image' 
