@@ -35,3 +35,16 @@ module "ram" {
 
  # prod_private_subnets = module.vpc-app.prod_private_subnets
 }
+
+
+module "routes" {
+  source = "./ROUTES"
+
+  app_private_rt_id = module.vpc-app.prod_app_private_rt_id
+  vpc_app_cidr      = module.vpc-app.vpc_cidr
+
+  db_private_rt_id  = module.vpc-db.prod_db_rt_id
+  vpc_db_cidr       = module.vpc-db.vpc_cidr
+  
+  vpc_peering_id    = module.vpc-peering.vpc_peering_id
+}

@@ -16,8 +16,8 @@ module "vpc_prod_app" {
                 ]
   public_subnets  = ["10.16.144.0/20","10.16.160.0/20","10.16.176.0/20"]
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway = false
+  single_nat_gateway = false
 
   enable_dns_hostnames = true
   enable_dns_support   = true

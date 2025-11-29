@@ -19,7 +19,7 @@ output "prod_db_subnets" {
   description = "Prod DB Subnet ARNs"
 }
 
-output "prod_db_rt" {
+output "prod_db_rt_id" {
   value       = aws_route_table.prod_db_private.id
   description = "Prod DB Route Table"
 }

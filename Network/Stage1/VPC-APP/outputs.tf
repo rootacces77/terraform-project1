@@ -15,9 +15,16 @@ output "prod_private_subnets" {
 } 
 
 
+output "prod_app_private_rt_id" {
+  value       = module.vpc_prod_app.private_route_table_ids[0]
+  description = "Private Route Table for PROD APP VPC"
+}
 
 
-
+output "vpc_cidr" {
+  value = module.vpc_prod_app.vpc_cidr_block
+  description = "CIDR of VPC APP"
+}
 
 
 
