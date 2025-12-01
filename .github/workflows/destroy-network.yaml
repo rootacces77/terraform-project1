@@ -32,4 +32,4 @@ jobs:
         run: terraform init -input=false
 
       - name: Terraform Destroy (Network)
-        run: terraform destroy -auto-approve 
+        run: terraform destroy -auto-approve -target=module.ram -target=module.routes -target=module.s3_logs -target=module.vpc-app -target=module.vpc-db -target=module.vpc-peering
