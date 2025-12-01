@@ -16,7 +16,7 @@ output "prod_private_subnets" {
 
 
 output "prod_app_private_rt_id" {
-  value       = aws_route_table.prod_app_private
+  value       = aws_route_table.prod_app_private.id
   description = "Private Route Table for PROD APP VPC"
 }
 

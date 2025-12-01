@@ -15,6 +15,17 @@ output "prod_account_id" {
 }
 
 output "network_account_id" {
-  value = module.organization.prod_account_id
-  description = "Prod Account ID"
+  value = module.organization.network_account_id
+  description = "Network Account ID"
 }
+
+
+output "prod_route53_role_arn" {
+  value = module.organization.prod_route53_role_arn
+  description = "ARN of role to allow Route53 certifications validation"
+}
+
+output "domain_name" {
+  value = module.organization.domain_name
+  description = "Registered Domain Name"
+  }

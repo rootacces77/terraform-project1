@@ -14,7 +14,7 @@ provider "aws" {
 
   assume_role {
     # This is the role you created IN THE NETWORK ACCOUNT
-    role_arn     = "arn:aws:iam::796796207799:role/AdminRole"
+    role_arn     = "arn:aws:iam::${local.network_account_id}:role/AdminRole"
     session_name = "tf-network"
   }
 }

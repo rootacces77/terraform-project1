@@ -6,7 +6,7 @@ sshd_empty: "no"
 sshd_pass_auth: "no"
 sshd_key_auth: "yes"
 
-sshd_users: "{{user_name}}"
+sshd_users: "{{user_name}} ec2_user" 
 sshd_groups: ""
 
 sshd_dns: "no"
