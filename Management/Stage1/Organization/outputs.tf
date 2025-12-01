@@ -23,8 +23,3 @@ output "prod_route53_role_arn" {
   value = aws_iam_role.prod_route53_writer.arn
   description = "ARN of role to allow Route53 certifications validation"
 }
-
-
-output "domain_name" {
-  value = data.aws_route53domains_registered_domains.all.names[0].domain_name
-}

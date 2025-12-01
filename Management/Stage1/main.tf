@@ -3,4 +3,7 @@ module "organization" {
 
 }
 
+module "route53" {
+  source = "./Route53"  
+}
 ##

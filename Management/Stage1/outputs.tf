@@ -26,6 +26,6 @@ output "prod_route53_role_arn" {
 }
 
 output "domain_name" {
-  value = module.organization.domain_name
+  value = var.domain_name
   description = "Registered Domain Name"
   }

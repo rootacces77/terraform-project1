@@ -1,6 +1,5 @@
 data "aws_organizations_organization" "organization" {}
 
-data "aws_route53domains_registered_domains" "all" {}
 
 locals {
     org_root_id = data.aws_organizations_organization.organization.roots[0].id
@@ -26,8 +25,8 @@ locals {
   }
 
   # Lookup IDs by account name
-  dev_account_id     = try(local.accounts_by_name["Dev"],              null)
-  prod_account_id    = try(local.accounts_by_name["Prod"],             null)
+  dev_account_id     = try(local.accounts_by_name["Dev"],null)
+  prod_account_id    = try(local.accounts_by_name["Prod"],null)
   network_account_id = try(local.accounts_by_name["Network"], null)
   security_account_id = try(local.accounts_by_name["Security"], null)
 }
