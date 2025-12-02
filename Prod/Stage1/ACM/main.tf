@@ -35,7 +35,7 @@ resource "aws_route53_record" "prod_app_validation" {
     }
   }
 
-  zone_id = data.terraform_remote_state.management.outputs.zone_id
+  zone_id = data.terraform_remote_state.management.outputs.domain_zone_id
 
   name    = each.value.name
   type    = each.value.type
