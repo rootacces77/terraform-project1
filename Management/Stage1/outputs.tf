@@ -29,3 +29,8 @@ output "domain_name" {
   value = var.domain_name
   description = "Registered Domain Name"
   }
+
+  output "domain_zone_id" {
+  value = data.aws_route53_zone.main.zone_id
+  description = "Domain Zone ID"
+  }

@@ -1,6 +1,5 @@
 data "aws_organizations_organization" "organization" {}
 
-
 locals {
     org_root_id = data.aws_organizations_organization.organization.roots[0].id
     org_id      = data.aws_organizations_organization.organization.id

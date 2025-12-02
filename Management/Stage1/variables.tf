@@ -4,3 +4,9 @@ variable "domain_name" {
     default = "project-practice.com"
   
 }
+
+data "aws_route53_zone" "main" {
+  provider     = aws.management
+  name         = var.domain_name
+  private_zone = false
+}

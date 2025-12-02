@@ -1,8 +1,8 @@
-data "aws_route53_zone" "main" {
+/*data "aws_route53_zone" "main" {
   provider     = aws.mgmt_dns
   name         = data.terraform_remote_state.management.outputs.domain_name
   private_zone = false
-}
+} */
 
 #CREATE AND VALIDATE CERTIFICATE THAT WILL BE USED BY ALB AND CF
 resource "aws_acm_certificate" "prod_app" {
@@ -35,7 +35,7 @@ resource "aws_route53_record" "prod_app_validation" {
     }
   }
 
-  zone_id = data.aws_route53_zone.main.zone_id
+  zone_id = data.terraform_remote_state.management.outputs.zone_id
 
   name    = each.value.name
   type    = each.value.type
