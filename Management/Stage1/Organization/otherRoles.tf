@@ -59,7 +59,8 @@ resource "aws_iam_policy" "prod_route53_writer" {
         Effect = "Allow",
         Action = [
           "route53:ListHostedZonesByName",
-          "route53:ListHostedZones"
+          "route53:ListHostedZones",
+          "route53:GetHostedZone"
         ],
         Resource = "*"
       }
