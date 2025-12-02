@@ -31,19 +31,19 @@ output "vpc_cidr" {
 
 
 output "prod_app_public_subnets_ids" {
-  value =  [for s in aws_subnet.prod_app_public : s.arn]
+  value =  [for s in aws_subnet.prod_app_public : s.id]
   description = "ID's of Public Subnets "
   
 }
 
 output "prod_app_private_subnets_ids" {
-  value =  [for s in aws_subnet.prod_app_private : s.arn]
+  value =  [for s in aws_subnet.prod_app_private : s.id]
   description = "ID's of Private Subnets "
   
 }
 
 output "prod_app_security_subnets_ids" {
-  value =  [for s in aws_subnet.prod_app_security : s.arn]
+  value =  [for s in aws_subnet.prod_app_security : s.id]
   description = "ID's of Security Subnets "
   
 }
