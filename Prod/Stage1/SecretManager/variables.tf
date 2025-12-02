@@ -14,7 +14,7 @@ variable "admin_role_name" {
   description = "Admin role that can read secrets"
 }
 
-variable "ec2_secrets_role_name" {
+variable "ec2_secrets_role_arn" {
   type        = string
   description = "EC2 instance role that can read secrets"
 }

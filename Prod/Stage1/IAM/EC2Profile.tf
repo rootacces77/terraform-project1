@@ -1,7 +1,7 @@
 ############################
-# IAM Role for EC2 to read Secrets Manager
+# IAM Role for EC2 APP 
 ############################
-resource "aws_iam_role" "ec2_secrets_reader" {
+resource "aws_iam_role" "app_ec2_role" {
   name = "EC2SecretsReaderRole"
 
   assume_role_policy = jsonencode({
@@ -16,9 +16,7 @@ resource "aws_iam_role" "ec2_secrets_reader" {
   })
 }
 
-############################
 # Attach AWS managed read-only Secrets Manager policy
-############################
 data "aws_iam_policy_document" "ec2_secrets_reader" {
   statement {
     sid    = "ReadSecrets"
@@ -51,11 +49,18 @@ resource "aws_iam_policy" "ec2_secrets_reader" {
   policy = data.aws_iam_policy_document.ec2_secrets_reader.json
 }
 resource "aws_iam_role_policy_attachment" "ec2_secrets_reader_attach" {
-  role       = aws_iam_role.ec2_secrets_reader.name
+  role       = aws_iam_role.app_ec2_role.name
   policy_arn = aws_iam_policy.ec2_secrets_reader.arn
 }
 
-resource "aws_iam_instance_profile" "ec2_secrets_reader_profile" {
-  name = "EC2SecretsReaderInstanceProfile"
-  role = aws_iam_role.ec2_secrets_reader.name
+#SSM POLICY ATTACHMENT
+resource "aws_iam_role_policy_attachment" "ssm_core" {
+  role       = aws_iam_role.app_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+
+resource "aws_iam_instance_profile" "ec2_app_profile" {
+  name = "AppEC2Profile"
+  role = aws_iam_role.app_ec2_role.name
 }
