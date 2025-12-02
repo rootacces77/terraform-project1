@@ -6,7 +6,11 @@ resource "aws_iam_role" "prod_route53_writer" {
     Statement = [{
       Effect = "Allow"
       Principal = {
-        AWS = "arn:aws:iam::${local.prod_account_id}:root"
+        AWS = [ "arn:aws:iam::${local.prod_account_id}:root",
+                "arn:aws:iam::238407199949:role/GitHubActionsTerraformRole"
+          
+
+        ]
         # or better: a specific role in Prod you use for Terraform/CI
       }
       Action = "sts:AssumeRole"
