@@ -35,7 +35,8 @@ resource "aws_iam_policy" "prod_route53_writer" {
         Effect = "Allow",
         Action = [
           "route53:ChangeResourceRecordSets",
-          "route53:ListResourceRecordSets"
+          "route53:ListResourceRecordSets",
+          "route53:GetChange"
         ],
         Resource = "arn:aws:route53:::hostedzone/${data.aws_route53_zone.main.zone_id}",
         Condition = {
