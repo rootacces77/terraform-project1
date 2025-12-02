@@ -60,7 +60,8 @@ resource "aws_iam_policy" "prod_route53_writer" {
         Action = [
           "route53:ListHostedZonesByName",
           "route53:ListHostedZones",
-          "route53:GetHostedZone"
+          "route53:GetHostedZone",
+          "route53:ListTagsForResource"
         ],
         Resource = "*"
       }
