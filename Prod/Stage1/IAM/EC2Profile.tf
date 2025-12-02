@@ -2,7 +2,7 @@
 # IAM Role for EC2 APP 
 ############################
 resource "aws_iam_role" "app_ec2_role" {
-  name = "EC2SecretsReaderRole"
+  name = "EC2APPRole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
