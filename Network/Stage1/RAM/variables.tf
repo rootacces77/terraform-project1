@@ -24,7 +24,7 @@ variable "prod_security_subnets" {
   description = "PROD APP Subnets ARNS"
 }
 
-variable "prod_private_subnets" {
+variable "prod_app_subnets" {
   type = list(string)
   description = "PROD APP Subnets ARNS"
 }

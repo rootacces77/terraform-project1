@@ -22,7 +22,7 @@ sshd_port: 2222
 https_port: 443
 http_port: 80
 mariadb_port: 3306
-httpd_port: 8080
+httpd_port: 80
 
 #Path needed for SeLinux and httpd ( dont change )
 httpd_data_path: "/web-data/sakila-demo"

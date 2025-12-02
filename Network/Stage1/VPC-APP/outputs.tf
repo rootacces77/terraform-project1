@@ -6,12 +6,15 @@ output "vpc_id" {
 
 output "prod_security_subnets" {
   value = [for s in aws_subnet.prod_app_security : s.arn]
-  description = "Security Subnets"
+  description = "ARN of Security Subnets"
 }
 
-output "prod_private_subnets" {
-  value = [for s in aws_subnet.prod_app_private : s.arn]
-  description = "Prod Subnets"
+output "prod_app_subnets" {
+    value = concat(
+    [for s in aws_subnet.prod_app_private : s.arn],
+    [for s in aws_subnet.prod_app_public : s.arn]
+  )
+  description = "ARN of Prod APP Subnets"
 } 
 
 
@@ -27,6 +30,23 @@ output "vpc_cidr" {
 }
 
 
+output "prod_app_public_subnets_ids" {
+  value =  [for s in aws_subnet.prod_app_public : s.arn]
+  description = "ID's of Public Subnets "
+  
+}
+
+output "prod_app_private_subnets_ids" {
+  value =  [for s in aws_subnet.prod_app_private : s.arn]
+  description = "ID's of Private Subnets "
+  
+}
+
+output "prod_app_security_subnets_ids" {
+  value =  [for s in aws_subnet.prod_app_security : s.arn]
+  description = "ID's of Security Subnets "
+  
+}
 
 
 

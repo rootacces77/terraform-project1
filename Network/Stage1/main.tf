@@ -28,7 +28,7 @@ module "vpc-peering" {
 module "ram" {
   source = "./RAM"
 
-  prod_private_subnets = module.vpc-app.prod_private_subnets
+  prod_app_subnets = module.vpc-app.prod_app_subnets
   prod_security_subnets = module.vpc-app.prod_security_subnets
   prod_db_subnets       = module.vpc-db.prod_db_subnets
 

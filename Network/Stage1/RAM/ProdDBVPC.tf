@@ -1,5 +1,5 @@
 resource "aws_ram_resource_share" "prod_db_subnets_shared" {
-  name                      = "prod-subnets-shared"
+  name                      = "prod-db-subnets-shared"
   allow_external_principals = false   # only inside the same AWS Org
 }
 

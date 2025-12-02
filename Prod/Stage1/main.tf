@@ -24,3 +24,11 @@ module "security_groups" {
     source = "./SecurityGroups"
 }
 
+module "alb" {
+  source  = "./ALB-APP"
+
+  vpc_id              = data.terraform_remote_state.network.outputs.vpc_app_id
+  alb_sg_id           = module.security_groups.alb_sg_id
+  acm_certificate_arn = module.acm.prod_cert_arn
+  alb_subnets         = data.terraform_remote_state.network.outputs.prod_app_public_subnets_ids
+}
