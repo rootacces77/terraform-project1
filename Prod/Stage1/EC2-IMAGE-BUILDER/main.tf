@@ -3,9 +3,9 @@
   
 } */
 
-module "ec2-db" {
+/*module "ec2-db" {
     source = "./EC2-DB"
 
     secret_reader_policy_arn = var.secret_reader_policy_arn
   
-}
+} */
