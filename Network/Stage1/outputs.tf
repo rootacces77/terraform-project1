@@ -28,7 +28,7 @@ output "prod_app_security_subnets_ids" {
   
 }
 
-output "prod_db_private_subnet_ids" {
+output "prod_db_private_subnets_ids" {
   value =  module.vpc-db.prod_db_subnet_ids
   description = "ID's of DB Subnets "
   
