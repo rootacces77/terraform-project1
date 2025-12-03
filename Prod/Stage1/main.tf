@@ -59,3 +59,13 @@ module "asg" {
   app_template_id        = module.ec2_templates.app_ec2_template_id
   
 }
+
+module "ec2-db" {
+  source = "./EC2-DB"
+
+  subnet_id             = data.terraform_remote_state.network.outputs.prod_db_private_subnets_ids[0]
+  key_name              = module.kms.ec2_key_name
+  instance_profile_name = module.iam.app_ec2_profile_name
+  security_group_id     = module.security_groups.db_sg_id
+  
+}

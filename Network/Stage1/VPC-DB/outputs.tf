@@ -23,7 +23,8 @@ output "prod_db_rt_id" {
   value       = aws_route_table.prod_db_private.id
   description = "Prod DB Route Table"
 }
-/*output "prod_db_subnets" {
-  value = aws_vpc.vpc_prod_db.private_subnet_arns
-  description = "Prod DB Subnets"
-} */
+
+output "prod_db_subnet_ids" {
+  value       = [for s in aws_subnet.prod_db_private : s.id]
+  description = "Prod DB Subnet IDs"
+}
