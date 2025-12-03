@@ -34,15 +34,15 @@ resource "aws_secretsmanager_secret_version" "db_password" {
 
 
 locals {
-  secret_arns = [
-    aws_secretsmanager_secret.ec2_private_key.arn,
-    aws_secretsmanager_secret.db_username.arn,
-    aws_secretsmanager_secret.db_password.arn
-  ]
+  secret_arns = {
+    ec2_key = aws_secretsmanager_secret.ec2_private_key.arn
+    db_username = aws_secretsmanager_secret.db_username.arn
+    db_password = aws_secretsmanager_secret.db_password.arn
+  }
 }
 
 resource "aws_secretsmanager_secret_policy" "ec2_secret_policy" {
-  for_each = toset(local.secret_arns)
+  for_each = local.secret_arns
   secret_arn = each.value
 
 #    secret_arn = aws_secretsmanager_secret.ec2_private_key.arn
