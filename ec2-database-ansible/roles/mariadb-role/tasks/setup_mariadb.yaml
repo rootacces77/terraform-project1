@@ -1,7 +1,7 @@
-- name: Install Mariadb
-  ansible.builtin.dnf:
-    name: "{{mariadb_install}}" 
-    state: present
+#- name: Install Mariadb
+#  ansible.builtin.dnf:
+#   name: "{{mariadb_install}}" 
+#   state: present
 
 - name: Create mysql dir
   ansible.builtin.file:
