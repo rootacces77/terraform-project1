@@ -1,0 +1,49 @@
+name: ImageBuilder-AnsibleWeb
+description: Build Image using Ansible
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: update_and_install
+        action: ExecuteBash
+        inputs:
+          commands:
+            - dnf -y update
+            - dnf -y install ansible-core python3 git jq unzip
+            - ansible-galaxy collection install ansible.posix community.general
+            - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+            - unzip /tmp/awscliv2.zip -d /tmp
+            - /tmp/aws/install
+
+      - name: fetch_and_replace_secrets
+        action: ExecuteBash
+        inputs:
+          commands:
+
+      # Fetch secrets
+            - DBUSER=$(aws secretsmanager get-secret-value --secret-id db/username --query 'SecretString' --output text)
+            - DBPASSWORD=$(aws secretsmanager get-secret-value --secret-id db/password --query 'SecretString' --output text)
+
+      # Clone repository
+            - git clone https://github.com/rootacces77/terraform-project1 /tmp/terraform-project1
+
+      # Replace placeholders
+            - sed -i "s/DBUSER/$DBUSER/" /tmp/terraform-project1/ec2-webserver-ansible/playbooks/vars/main.yaml
+            - sed -i "s/DBPASSWORD/$DBPASSWORD/" /tmp/terraform-project1/ec2-webserver-ansible/playbooks/vars/main.yaml
+
+      - name: run_playbook
+        action: ExecuteBash
+        inputs:
+          commands:
+
+            # Go into the Ansible directory and run playbook locally on this instance
+            - cd /tmp/terraform-project1/ec2-webserver-ansible
+            - ansible-playbook playbooks/main.yaml
+
+      - name: cleanup
+        action: ExecuteBash
+        inputs:
+          commands:
+            - dnf -y remove ansible git
+            - rm -rf /tmp/terraform-project1 /tmp/awscliv2.zip

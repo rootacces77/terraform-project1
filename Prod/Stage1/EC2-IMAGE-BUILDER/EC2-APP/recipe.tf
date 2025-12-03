@@ -77,23 +77,3 @@ resource "aws_imagebuilder_image_recipe" "web_recipe" {
 }
 
 
-
-#DATABASE IMAGE BUILDER RECIPE
-resource "aws_imagebuilder_component" "db_build_image" {
-  name       = "build-image"
-  platform   = "Linux"
-  version    = "1.0.0"
-  data       = file("${path.module}/components/db-image-builder.yaml")
-}
-
-
-resource "aws_imagebuilder_image_recipe" "db_recipe" {
-  name         = "database-ami"
-  version      = "1.0.0"
-  parent_image = data.aws_ami.rhel9.id
-
-  component {
-    component_arn = aws_imagebuilder_component.db_build_image.arn
-  }
-
-}

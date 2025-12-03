@@ -19,3 +19,17 @@ data "terraform_remote_state" "network" {
 locals {
   prod_account_id = data.terraform_remote_state.management.outputs.prod_account_id
 }
+
+variable "db_user" {
+  type        = string
+  description = "DB USERNAME"
+  default     = "terraform"
+  
+}
+
+variable "db_password" {
+  type        = string
+  description = "DB PASSWORD"
+  default     = "terraform"
+  
+}

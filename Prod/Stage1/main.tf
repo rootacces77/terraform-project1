@@ -1,6 +1,8 @@
-/*module "ec2_image_builder" {
+module "ec2_image_builder" {
   source = "./EC2-IMAGE-BUILDER"
-} */
+
+  secret_reader_policy_arn = module.iam.secret_reader_policy_arn
+} 
 
 module "iam" {
   source = "./IAM"
@@ -8,7 +10,12 @@ module "iam" {
 
 module "secret_manager" {
     source = "./SecretManager"  
+
+
     ec2_secrets_role_arn = module.iam.app_ec2_role_arn
+    db_username          = var.db_user
+    db_password          = var.db_password
+
 }
 
 module "kms" {

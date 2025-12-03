@@ -2,20 +2,26 @@
 user_name: "ansible"
 user_password: "{{root | password_hash('sha512' ) }}"
 user_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhuCNqtfB/3G6kC6CYLuP1+7xQSQXnJ8oFeeLoLR0sO proj>
-db_user: "ansible"
-db_password: "root"
+
 
 db_device_path: "/dev/sdb"
 
+
+bastion_internal_ip: '192.168.100.101'
+bastion_external_ip: '192.168.0.30'
 bastion_pub_iface: "enp0s3"
 bastion_priv_iface: "enp0s8"
 #webserver_iface1: ""
 #database_iface2: ""
 
-database_ip: '192.168.100.103'
-webserver_ip: '192.168.100.102'
-bastion_internal_ip: '192.168.100.101'
-bastion_external_ip: '192.168.0.30'
+
+#Database config parameters
+database_ip: '0.0.0.0'
+webserver_ip: '%'
+db_user: "DBUSER"
+db_password: "DBPASSWORD"
+
+
 
 sshd_port: 2222
 https_port: 443

@@ -8,3 +8,9 @@ output "app_ec2_role_arn" {
   description = "ARN of APP EC2 Role"
   
 }
+
+output "secret_reader_policy_arn" {
+  value = aws_iam_policy.ec2_secrets_reader.arn
+  description = "ARN of Secret Manager Reader Policy"
+
+}

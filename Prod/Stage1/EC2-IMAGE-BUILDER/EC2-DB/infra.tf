@@ -1,4 +1,5 @@
-#WEBSERVER IMAGE BUILDER INFRA
+#DATABASE IMAGE BUILDER INFRA
+
 data "aws_iam_policy_document" "builder_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -10,7 +11,7 @@ data "aws_iam_policy_document" "builder_assume_role" {
 }
 
 resource "aws_iam_role" "builder_role" {
-  name               = "EC2ImageBuilderRole"
+  name               = "EC2ImageBuilderRoleDB"
   assume_role_policy = data.aws_iam_policy_document.builder_assume_role.json
 }
 
@@ -24,24 +25,19 @@ resource "aws_iam_role_policy_attachment" "builder_ssm_core" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
-resource "aws_iam_instance_profile" "builder_profile" {
-  name = "EC2ImageBuilderInstanceProfile"
+resource "aws_iam_role_policy_attachment" "builder_secret_reader" {
+  role       = aws_iam_role.builder_role.name
+  policy_arn = var.secret_reader_policy_arn
+}
+
+resource "aws_iam_instance_profile" "db_builder_profile" {
+  name = "EC2ImageBuilderInstanceProfileDB"
   role = aws_iam_role.builder_role.name
 }
-
-resource "aws_imagebuilder_infrastructure_configuration" "web_infra" {
-  name                  = "webserver-infra"
-  instance_types        = ["t2.micro"]
-  terminate_instance_on_failure = true
-  instance_profile_name       = aws_iam_instance_profile.builder_profile.name
-}
-
-
-#DATABASE IMAGE BUILDER INFRA
 
 resource "aws_imagebuilder_infrastructure_configuration" "db_infra" {
   name                  = "database-infra"
   instance_types        = ["t2.micro"]
   terminate_instance_on_failure = true
-  instance_profile_name       = aws_iam_instance_profile.builder_profile.name
+  instance_profile_name       = aws_iam_instance_profile.db_builder_profile.name
 }
