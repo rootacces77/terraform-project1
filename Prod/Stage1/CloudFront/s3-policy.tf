@@ -83,7 +83,7 @@ data "aws_iam_policy_document" "s3_cf_origin_policy" {
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.this.cloudfront_distribution_arn]
+      values   = [aws_cloudfront_distribution.this.arn]
     }
 
     # Extra guardrail: only allow when the distribution is in your Prod account
