@@ -1,5 +1,5 @@
 resource "aws_s3_bucket_policy" "s3_cf_origin_attach" {
-  bucket = module.s3_cf_origin.s3_bucket_id
+  bucket = var.s3_cf_origin_id
   policy = data.aws_iam_policy_document.s3_cf_origin_policy.json
 }
 
