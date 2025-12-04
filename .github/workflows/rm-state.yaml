@@ -32,4 +32,5 @@ jobs:
         run: terraform init -input=false
 
       - name: Terraform Destroy (Prod)
-        run: terraform state rm 'module.ec2-image-builder.aws_imagebuilder_image.web_image' 
+     #   run: terraform state rm 'module.ec2-image-builder.aws_imagebuilder_image.web_image' 
+        run: terraform state rm 'module.asg'
