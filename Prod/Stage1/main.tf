@@ -91,3 +91,12 @@ module "cloudfront" {
 
   
 }
+
+module "cloudwatch" {
+  source = "./CloudWatch"
+
+  logs_bucket_arn = module.s3.s3_ec2_logs_arn
+  logs_bucket_name = module.s3.s3_ec2_logs_regional_domain_name
+  aws_region_id    = data.aws_region.current.id
+  prod_account_id  = local.prod_account_id
+}

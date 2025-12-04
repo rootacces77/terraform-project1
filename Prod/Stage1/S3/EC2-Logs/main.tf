@@ -94,7 +94,7 @@ resource "aws_s3_bucket_policy" "org_readonly" {
             "s3:x-amz-acl": "bucket-owner-full-control"
           },
           ArnLike: {
-            "aws:SourceArn": "arn:aws:logs:${data.aws_region.current.id}:${var.prod_account_id}:*"
+            "aws:SourceArn": "arn:aws:logs:${var.aws_region_id}:${var.prod_account_id}:*"
           }
         }
       },
@@ -106,7 +106,7 @@ resource "aws_s3_bucket_policy" "org_readonly" {
         Resource: module.s3_ec2_logs.s3_bucket_arn,
         Condition: {
           StringEquals: { "aws:SourceAccount": var.prod_account_id },
-          ArnLike:      { "aws:SourceArn": "arn:aws:logs:${data.aws_region.current.id}:${var.prod_account_id}:*"}
+          ArnLike:      { "aws:SourceArn": "arn:aws:logs:${var.aws_region_id}:${var.prod_account_id}:*"}
         }
       }
     ]
