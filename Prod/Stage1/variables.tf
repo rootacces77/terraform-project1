@@ -16,6 +16,8 @@ data "terraform_remote_state" "network" {
   }
 }
 
+data "aws_region" "current" {}
+
 locals {
   prod_account_id = data.terraform_remote_state.management.outputs.prod_account_id
 }

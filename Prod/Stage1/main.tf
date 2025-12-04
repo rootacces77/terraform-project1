@@ -1,8 +1,8 @@
-module "ec2_image_builder" {
+/*module "ec2_image_builder" {
   source = "./EC2-IMAGE-BUILDER"
 
   secret_reader_policy_arn = module.iam.secret_reader_policy_arn
-} 
+} */
 
 module "iam" {
   source = "./IAM"
@@ -51,21 +51,43 @@ module "ec2_templates" {
   
 }
 
-module "asg" {
+/*module "asg" {
   source = "./ASG-APP"
 
   app_private_subnet_ids = data.terraform_remote_state.network.outputs.prod_app_private_subnets_ids
   asg_target_group_arn   = module.alb.target_group_id
   app_template_id        = module.ec2_templates.app_ec2_template_id
   
-}
+}*/
 
-module "ec2-db" {
+/*module "ec2-db" {
   source = "./EC2-DB"
 
   subnet_id             = data.terraform_remote_state.network.outputs.prod_db_private_subnets_ids[0]
   key_name              = module.kms.ec2_key_name
   instance_profile_name = module.iam.app_ec2_profile_name
   security_group_id     = module.security_groups.db_sg_id
+  
+} */
+
+module "s3" {
+  source = "./S3"
+
+  prod_account_id = local.prod_account_id
+  aws_region_id =  data.aws_region.current.id
+  org_id = data.terraform_remote_state.management.outputs.org_id
+  
+}
+
+module "cloudfront" {
+  source = "./CloudFront"
+
+  s3_bucket_regional_domain_name = module.s3.s3_cf_origin_regional_domain_name
+  s3_cf_origin_arn               = module.s3.s3_cf_origin_arn
+  s3_cf_origin_id                = module.s3.s3_cf_origin_id
+  acm_certificate_arn            = module.acm.prod_cert_arn
+  prod_account_id                = local.prod_account_id
+  alb_dns_name                   = module.alb.alb_dns_name
+
   
 }
