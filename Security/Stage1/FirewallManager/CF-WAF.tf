@@ -1,6 +1,5 @@
 #WAF ACL
 resource "aws_wafv2_web_acl" "cf_acl" {
-  provider    = aws.us_east_1
   name        = "cloudfront-default-protections"
   description = "Baseline + L7 DDoS protections for CloudFront"
   scope       = "CLOUDFRONT"
