@@ -8,3 +8,8 @@ resource "aws_cloudtrail_organization_delegated_admin_account" "security" {
   account_id = local.security_account_id
 
 }
+
+resource "aws_fms_admin_account" "security" {
+  provider   = aws.management
+  account_id = local.security_account_id
+}
