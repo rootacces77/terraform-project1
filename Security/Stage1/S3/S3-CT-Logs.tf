@@ -122,9 +122,28 @@ data "aws_iam_policy_document" "cloudtrail_bucket" {
       identifiers = ["*"]
     }
 
-    actions   = ["s3:ListBucket",
-                 "s3:GetObject"]
+    actions   = ["s3:ListBucket"]
     resources = [module.s3_cloudtrail_logs.s3_bucket_arn]
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:PrincipalOrgID"
+      values   = [var.org_id]
+    }
+  }
+  statement {
+    sid = "OrgReadObjects"
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    actions = ["s3:GetObject"]
+
+    resources = [
+      "${module.s3_cloudtrail_logs.s3_bucket_arn}/*",
+    ]
 
     condition {
       test     = "StringEquals"
