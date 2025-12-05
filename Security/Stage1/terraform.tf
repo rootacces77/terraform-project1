@@ -14,7 +14,7 @@ provider "aws" {
 
   assume_role {
     # This is the role you created IN THE SECURITY ACCOUNT
-    role_arn     = "arn:aws:iam::771611221901:role/AdminRole"
+    role_arn     = "arn:aws:iam::${local.security_account_id}:role/AdminRole"
     session_name = "tf-network"
   }
 }
