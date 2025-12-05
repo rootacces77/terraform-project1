@@ -13,3 +13,10 @@ module "cloudtrail" {
     s3_cloudtrail_logs_id = module.s3.s3_cloudtrail_logs_id
   
 }
+
+module "firewall_manager" {
+    source = "./FirewallManager"
+
+    prod_account_id = local.prod_account_id
+  
+}

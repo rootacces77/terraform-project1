@@ -40,7 +40,9 @@ resource "aws_cloudfront_distribution" "cf_distribution" {
 
   aliases = var.aliases
 
-  # Origins
+
+
+  # ALB ORIGIN
   origin {
     origin_id   = "alb-origin"
     domain_name = var.alb_dns_name
@@ -50,9 +52,15 @@ resource "aws_cloudfront_distribution" "cf_distribution" {
       https_port             = 443
       origin_protocol_policy = "https-only"   # CloudFront -> ALB uses HTTPS
       origin_ssl_protocols   = ["TLSv1.2"]
+
+    }
+    custom_header {
+      name  = "X-CloudFront-Secret"
+      value = var.cf_alb_shared_secret
     }
   }
 
+   # S3 ORIGIN
   origin {
     origin_id                   = "s3-origin"
     domain_name                 = var.s3_bucket_regional_domain_name

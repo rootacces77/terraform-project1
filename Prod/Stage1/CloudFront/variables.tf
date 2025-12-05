@@ -39,3 +39,9 @@ variable "prod_account_id" {
     description = "ID of Prod Account"
   
 }
+
+variable "cf_alb_shared_secret" {
+    type = string
+    description = "Shared Secret between WAF and CF"
+    default = "test123"
+}
