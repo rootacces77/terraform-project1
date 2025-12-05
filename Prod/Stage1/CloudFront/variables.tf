@@ -9,7 +9,7 @@ variable "acm_certificate_arn" {
 variable "aliases" {
   type        = list(string)
   description = "Custom domain names for CloudFront (e.g. [\"app.example.com\"])"
-  default     = []
+  default     = ["www.project-practice.com"]
 }
 
 variable "alb_dns_name" {

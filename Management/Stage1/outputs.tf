@@ -3,6 +3,11 @@ output "org_id" {
   description = "Organization ID for policies"
 }
 
+output "management_account_id" {
+  value = module.organization.management_account_id
+  description = "Management Account ID"
+}
+
 output "security_account_id" {
   value = module.organization.security_account_id
   description = "Security Account ID"

@@ -1,7 +1,7 @@
 variable "ec2_bucket_name" {
   type        = string
   description = "Name of the bucket for storing EC2 logs"
-  default     = "prod-us-east-1-cf-origin-123456"
+  default     = "cf-origin-prod-us-east-1-123456"
 }
 
 variable "prod_account_id" {

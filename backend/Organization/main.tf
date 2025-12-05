@@ -1,6 +1,9 @@
 /*resource "aws_organizations_organization" "organization" {
   feature_set = "ALL"
   enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
+    aws_service_access_principals = [
+    "cloudtrail.amazonaws.com",
+  ]
 } */
 
 # Child accounts (email must be unique)

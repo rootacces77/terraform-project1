@@ -31,7 +31,7 @@ resource "aws_cloudfront_origin_access_control" "s3_oac" {
 ############################
 # CloudFront Distribution
 ############################
-resource "aws_cloudfront_distribution" "this" {
+resource "aws_cloudfront_distribution" "cf_distribution" {
   enabled         = true
   is_ipv6_enabled = true
   comment         = "CloudFront with ALB + S3 origins"

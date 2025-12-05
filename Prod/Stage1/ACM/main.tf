@@ -6,7 +6,10 @@
 
 #CREATE AND VALIDATE CERTIFICATE THAT WILL BE USED BY ALB AND CF
 resource "aws_acm_certificate" "prod_app" {
-  domain_name       =  data.terraform_remote_state.management.outputs.domain_name
+  domain_name               =  local.apex_domain
+  subject_alternative_names = [local.www_domain]
+
+
   validation_method = "DNS"
 
   lifecycle {

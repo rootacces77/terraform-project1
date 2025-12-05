@@ -28,6 +28,7 @@ locals {
   prod_account_id    = try(local.accounts_by_name["Prod"],null)
   network_account_id = try(local.accounts_by_name["Network"], null)
   security_account_id = try(local.accounts_by_name["Security"], null)
+  management_account_id = try(local.accounts_by_name["Management"], null)
 }
 
 variable "domain_name" {
