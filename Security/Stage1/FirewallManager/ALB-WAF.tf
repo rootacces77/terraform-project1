@@ -67,20 +67,15 @@ resource "aws_fms_policy" "waf_alb_policy" {
   }
   
 
-  security_service_policy_data {
+security_service_policy_data {
     type = "WAFV2"
 
     managed_service_data = jsonencode({
-      type = "WAFV2"
-      preProcessRuleGroups = []
-      postProcessRuleGroups = []
-      defaultAction = {
-        type = "BLOCK"
-      }
+      type                              = "WAFV2"
+      webaclId                          = aws_wafv2_web_acl.alb_cf_header_acl.arn
       overrideCustomerWebACLAssociation = false
-
-      # <<< The key: reference your WAF ACL here
-      webaclId = aws_wafv2_web_acl.alb_cf_header_acl.arn
+      # no preProcessRuleGroups / postProcessRuleGroups here
     })
   }
+  
 }

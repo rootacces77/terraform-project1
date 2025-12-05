@@ -9,30 +9,6 @@ resource "aws_wafv2_web_acl" "cf_acl" {
   }
 
 
-
-  # 0) Anti-DDoS managed rule group (L7 DDoS toggle)
-  rule {
-    name     = "AWSManagedRulesAntiDDoSRuleSet"
-    priority = 0
-
-    override_action {
-      none {}
-    }
-
-    statement {
-      managed_rule_group_statement {
-        name        = "AWSManagedRulesAntiDDoSRuleSet"
-        vendor_name = "AWS"
-      }
-    }
-
-    visibility_config {
-      cloudwatch_metrics_enabled = true
-      metric_name                = "AWSManagedRulesAntiDDoSRuleSet"
-      sampled_requests_enabled   = true
-    }
-  }
-
   # 1) IP reputation
   rule {
     name     = "AWSManagedRulesAmazonIpReputationList"
