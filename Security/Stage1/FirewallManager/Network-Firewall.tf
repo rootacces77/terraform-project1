@@ -1,6 +1,6 @@
 resource "aws_networkfirewall_rule_group" "egress_stateful" {
   capacity = 100
-  name     = "Firewall Rules"
+  name     = "FirewallRules"
   type     = "STATEFUL"
 
   rule_group {
