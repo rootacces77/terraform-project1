@@ -17,6 +17,7 @@ module "cloudtrail" {
 module "firewall_manager" {
     source = "./FirewallManager"
 
-    prod_account_id = local.prod_account_id
+    prod_account_id    = local.prod_account_id
+    network_account_id =  local.network_account_id
   
 }

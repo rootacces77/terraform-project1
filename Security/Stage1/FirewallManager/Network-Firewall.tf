@@ -23,7 +23,7 @@ resource "aws_fms_policy" "network_fw" {
 
   # Scope: which accounts
   include_map {
-    account = [var.prod_account_id]   # or all accounts in org
+    account = [var.network_account_id]   # or all accounts in org
   }
 
   # Scope: which VPCs inside those accounts

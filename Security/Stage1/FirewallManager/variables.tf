@@ -3,6 +3,12 @@ variable "prod_account_id" {
   description = "Prod account ID "
 }
 
+
+variable "network_account_id" {
+  type = string
+  description = "Net account ID "
+}
+
 variable "cf_alb_shared_secret" {
     type = string
     description = "Shared Secret between WAF and CF"
