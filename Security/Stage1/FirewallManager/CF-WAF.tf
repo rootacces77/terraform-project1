@@ -1,5 +1,5 @@
 #WAF ACL
-/*resource "aws_wafv2_web_acl" "cf_acl" {
+resource "aws_wafv2_web_acl" "cf_acl" {
   name        = "cloudfront-default-protections"
   description = "Baseline + L7 DDoS protections for CloudFront"
   scope       = "CLOUDFRONT"
@@ -87,7 +87,7 @@
   tags = {
     Name = "cloudfront-default-protections-l7-ddos"
   }
-} */
+} 
 
 /*
 #FIREWALL MANAGER POLICY
@@ -124,8 +124,9 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
       }
     })
   }
-} */
+} 
 
+/*
 resource "aws_fms_policy" "cloudfront_waf_policy" {
   name                               = "cloudfront-waf-protection"
   remediation_enabled                = true
@@ -149,7 +150,7 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
       type                              = "WAFV2"
       overrideCustomerWebACLAssociation = false
 
-      # 🔹 PRE-PROCESS RULE GROUPS – evaluated first
+      #  PRE-PROCESS RULE GROUPS – evaluated first
 
       preProcessRuleGroups = [
         # 1) Known Bad Inputs
@@ -181,7 +182,7 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
         }
       ]
 
-      # 🔹 POST-PROCESS RULE GROUPS – evaluated last
+      #  POST-PROCESS RULE GROUPS – evaluated last
 
       postProcessRuleGroups = [
         # 3) IP Reputation / Threat Intel
@@ -199,11 +200,11 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
         }
       ]
 
-      # 🔹 Default action if nothing matches the rule groups
+      #  Default action if nothing matches the rule groups
       defaultAction = {
         type = "ALLOW"
       }
     })
   }
 
-}
+} */

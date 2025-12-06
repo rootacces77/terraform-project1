@@ -1,4 +1,4 @@
-/* resource "aws_wafv2_web_acl" "alb_cf_header_acl" {
+ resource "aws_wafv2_web_acl" "alb_cf_header_acl" {
   name        = "alb-allow-cloudfront-secret"
   description = "Allow only CloudFront with correct secret header"
   scope       = "REGIONAL"    # important for ALB
@@ -48,9 +48,9 @@
     metric_name                = "alb-cf-header-acl"
     sampled_requests_enabled   = true
   }
-} */
+} 
 
-resource "aws_wafv2_rule_group" "alb_cf_header_rg" {
+/*resource "aws_wafv2_rule_group" "alb_cf_header_rg" {
   name        = "alb-cloudfront-secret-rg"
   description = "Allow only CloudFront with correct secret header"
   scope       = "REGIONAL"          # ALB = REGIONAL
@@ -145,5 +145,5 @@ resource "aws_fms_policy" "waf_alb_policy" {
       }
     })
   }
-}
+} */
 

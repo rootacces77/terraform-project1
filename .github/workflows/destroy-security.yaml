@@ -1,0 +1,35 @@
+name: Terraform Destroy (SEC)
+
+on:
+  workflow_dispatch:   # manual trigger in GitHub UI
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  destroy-sec:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Security/Stage1   # <-- adjust to your network folder
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1) Get creds in MANAGEMENT via OIDC
+      - name: Configure AWS via OIDC (Sec)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
+          aws-region: us-east-1
+
+      # 2) Terraform
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Destroy (Sec)
+        run: terraform destroy -auto-approve -target=module.firewall_manager

@@ -126,6 +126,28 @@ resource "aws_subnet" "prod_app_public" {
   }
 }
 
+#NAT
+/*
+resource "aws_eip" "nat" {
+  domain = "vpc"
+
+  tags = {
+    Name = "nat-eip"
+  }
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = local.prod_app_public_subnets[0]
+
+  tags = {
+    Name = "nat-gw-public-1"
+  }
+}
+*/
+
+
+#RT
 resource "aws_route_table" "prod_app_public" {
   vpc_id = aws_vpc.vpc_prod_app.id
 
@@ -183,6 +205,12 @@ resource "aws_route_table_association" "prod_app_security" {
   subnet_id      = each.value.id
   route_table_id = aws_route_table.prod_app_security.id
 }
+/*
+resource "aws_route" "firewall_to_nat" {
+  route_table_id         = aws_route_table.firewall_subnets.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = 
+} */
 
 
 ########################
