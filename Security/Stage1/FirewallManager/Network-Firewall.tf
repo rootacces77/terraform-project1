@@ -7,19 +7,38 @@ resource "aws_networkfirewall_rule_group" "egress_stateful" {
     rule_variables {}
     rules_source {
       rules_string = <<-EOT
-        # EXAMPLE ONLY – Block Reverse Shell
-        drop tcp any any -> any any (msg:"Egress: Bash reverse shell attempt"; content:"/bin/bash"; nocase; sid:10001; rev:1;)
-        #C2 attack
-        drop http any any -> any any (msg:"C2: Cobalt Strike Beacon user-agent"; content:"Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0)";http_user_agent; sid:10005; rev:1;)
+        # Block Bash reverse shell
+        drop tcp any any -> any any (
+            msg:"Egress: Bash reverse shell attempt";
+            content:"/bin/bash"; nocase;
+            sid:10001; rev:1;
+        )
+
+        # C2 via specific user-agent (Cobalt Strike example) - simplified content
+        drop http any any -> any any (
+            msg:"C2: Cobalt Strike Beacon user-agent (Trident/7.0)";
+            content:"Trident/7.0";
+            http_user_agent;
+            sid:10005; rev:2;
+        )
         
         # Allow outbound HTTPS
-        pass tcp any any -> any 443 (msg:"Egress Allowed: HTTPS (443)";sid:20001; rev:1;)
+        pass tcp any any -> any 443 (
+            msg:"Egress Allowed: HTTPS (443)";
+            sid:20001; rev:1;
+        )
 
         # Allow outbound HTTP
-        pass tcp any any -> any 80 (msg:"Egress Allowed: HTTP (80)";sid:20002; rev:1;)
+        pass tcp any any -> any 80 (
+            msg:"Egress Allowed: HTTP (80)";
+            sid:20002; rev:1;
+        )
 
         # Drop all other outbound TCP
-        drop tcp any any -> any any (msg:"Egress Blocked: Non-HTTP/HTTPS traffic";sid:20003; rev:1;)
+        drop tcp any any -> any any (
+            msg:"Egress Blocked: Non-HTTP/HTTPS traffic";
+            sid:20003; rev:1;
+        )
       EOT
     }
   }
