@@ -10,7 +10,7 @@ resource "aws_networkfirewall_rule_group" "egress_stateful" {
         # EXAMPLE ONLY – Block Reverse Shell
         drop tcp any any -> any any (msg:"Egress: Bash reverse shell attempt"; content:"/bin/bash"; nocase; sid:10001; rev:1;)
         #C2 attack
-        drop http any any -> any any (msg:"C2: Cobalt Strike Beacon  user-agent"; http_user_agent:"Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0)"; sid:10005; rev:1;)
+        drop http any any -> any any (msg:"C2: Cobalt Strike Beacon user-agent"; content:"Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0)";http_user_agent; sid:10005; rev:1;)
         
         # Allow outbound HTTPS
         pass tcp any any -> any 443 (msg:"Egress Allowed: HTTPS (443)";sid:20001; rev:1;)
