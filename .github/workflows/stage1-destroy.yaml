@@ -22,6 +22,9 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+      - name: Terraform Init (Management)
+        working-directory: Management/Stage1                # << ROOT DIR for Prod stack
+        run: terraform init -input=false
 
       - name: Terraform Apply (Management, only on main)
         if: github.ref == 'refs/heads/main'
@@ -43,6 +46,10 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+      - name: Terraform Init (Network)
+        working-directory: Network/Stage1        # << ROOT DIR for Network stack
+        run: terraform init -input=false
+
       - name: Terraform Apply (Network, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Network/Stage1 
@@ -63,6 +70,10 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+      - name: Terraform Init (Prod)
+        working-directory: Prod/Stage1                 # << ROOT DIR for Prod stack
+        run: terraform init -input=false
+
       - name: Terraform Apply (Prod, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Prod/Stage1 
@@ -81,6 +92,10 @@ jobs:
           aws-region: us-east-1
 
       - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init (Security)
+        working-directory: Security/Stage1                  # << ROOT DIR for Prod stack
+        run: terraform init -input=false
 
       - name: Terraform Apply (Security, only on main)
         if: github.ref == 'refs/heads/main'
