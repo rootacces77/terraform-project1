@@ -1,4 +1,4 @@
-name: Terraform Deploy Stage2 (All Accounts)
+name: Terraform Destroy Stage2 (All Accounts)
 
 on:
   workflow_dispatch:
