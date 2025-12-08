@@ -63,7 +63,7 @@ resource "aws_fms_policy" "network_fw" {
       networkFirewallOrchestrationConfig = {
         singleFirewallEndpointPerVPC = true               # one per AZ
         allowedIPV4CidrList          = []                   # or restrict to your CIDRs
-        routeManagementAction      = "MONITOR_AND_ENFORCE"         # or "MONITOR" if you only want to observe
+        routeManagementAction      = "MONITOR"         # or "MONITOR" if you only want to observe
         routeManagementTargetTypes = ["InternetGateway"]
       }
     })
