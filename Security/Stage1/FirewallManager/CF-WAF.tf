@@ -175,13 +175,13 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
 
 
 resource "aws_fms_policy" "cloudfront_waf_policy" {
-  name                        = "cloudfront-default-protections"
+  name                        = "cloudfront-default-protections123"
   delete_all_policy_resources = false
 
   # Which accounts to include – adjust as needed
   include_map {
     account = [
-      var.prod_account_id,
+      var.prod_account_id
     ]
   }
 
