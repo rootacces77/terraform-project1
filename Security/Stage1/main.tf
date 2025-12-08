@@ -15,13 +15,13 @@ module "cloudtrail" {
   
 }
 
-module "firewall_manager" {
+/* module "firewall_manager" {
     source = "./FirewallManager"
 
     prod_account_id    = local.prod_account_id
     network_account_id =  local.network_account_id
   
-}
+} */
 
 module "iam" {
     source = "./IAM"

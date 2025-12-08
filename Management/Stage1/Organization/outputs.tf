@@ -27,3 +27,9 @@ output "prod_route53_role_arn" {
   value = aws_iam_role.prod_route53_writer.arn
   description = "ARN of role to allow Route53 certifications validation"
 }
+
+output "network_route53_role_arn" {
+  value = aws_iam_role.route53_network.arn
+  description = "ARN of Role for route53"
+  
+}

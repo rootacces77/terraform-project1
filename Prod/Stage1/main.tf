@@ -1,8 +1,8 @@
-/*module "ec2_image_builder" {
+module "ec2_image_builder" {
   source = "./EC2-IMAGE-BUILDER"
 
   secret_reader_policy_arn = module.iam.secret_reader_policy_arn
-} */
+} 
 
 module "iam" {
   source = "./IAM"
@@ -44,23 +44,23 @@ module "ec2_templates" {
   source = "./EC2-Templates"
 
   app_ec2_profile_arn = module.iam.app_ec2_profile_arn
-  #app_ami_id          = module.ec2_image_builder.ec2_app_ami_id
+  app_ami_id          = module.ec2_image_builder.ec2_app_ami_id
   ec2_key_name        = module.kms.ec2_key_name
   app_ec2_sg_id       = module.security_groups.web_sg_id
 
   
 }
 
-/*module "asg" {
+module "asg" {
   source = "./ASG-APP"
 
   app_private_subnet_ids = data.terraform_remote_state.network.outputs.prod_app_private_subnets_ids
   asg_target_group_arn   = module.alb.target_group_id
   app_template_id        = module.ec2_templates.app_ec2_template_id
   
-}*/
+}
 
-/*module "ec2-db" {
+module "ec2-db" {
   source = "./EC2-DB"
 
   subnet_id             = data.terraform_remote_state.network.outputs.prod_db_private_subnets_ids[0]
@@ -69,7 +69,7 @@ module "ec2_templates" {
   security_group_id     = module.security_groups.db_sg_id
   db_ami_id             = module.ec2_image_builder.ec2_db_ami_id
   
-} */
+} 
 
 module "s3" {
   source = "./S3"

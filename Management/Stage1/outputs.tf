@@ -39,3 +39,9 @@ output "domain_name" {
   value = data.aws_route53_zone.main.zone_id
   description = "Domain Zone ID"
   }
+
+  output "network_route53_role_arn" {
+  value = module.organization.network_route53_role_arn
+  description = "ARN of Role for route53"
+  
+}

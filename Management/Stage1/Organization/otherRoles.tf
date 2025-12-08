@@ -73,3 +73,80 @@ resource "aws_iam_role_policy_attachment" "prod_route53_writer_attach" {
   role       = aws_iam_role.prod_route53_writer.name
   policy_arn = aws_iam_policy.prod_route53_writer.arn
 }
+
+
+
+
+#Networking Route53 Role
+
+resource "aws_iam_role" "route53_network" {
+  name = "Route53ManagementRole"
+
+  # Trust policy: allow Networking account to assume this role
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:iam::${local.network_account_id}:root"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+
+  tags = {
+    Name        = "Route53ManagementRole"
+    Terraform   = "true"
+    Environment = "management"
+  }
+}
+
+########################
+# IAM Policy for Route53 Management
+########################
+
+resource "aws_iam_policy" "route53_network" {
+  name        = "Route53ManagementPolicy"
+  description = "Allow cross-account Route53 hosted zone + registered domain NS management"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      # Hosted zone / record management
+      {
+        Sid    = "Route53HostedZoneManagement",
+        Effect = "Allow",
+        Action = [
+          "route53:ListHostedZones",
+          "route53:ListHostedZonesByName",
+          "route53:GetHostedZone",
+          "route53:ListResourceRecordSets",
+          "route53:ChangeResourceRecordSets"
+        ],
+        Resource = "*"
+      },
+      # Registered domain nameserver updates
+      {
+        Sid    = "Route53DomainNameserversUpdate",
+        Effect = "Allow",
+        Action = [
+          "route53domains:ListDomains",
+          "route53domains:GetDomainDetail",
+          "route53domains:UpdateDomainNameservers"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+########################
+# Attach Policy to Role
+########################
+
+resource "aws_iam_role_policy_attachment" "route53_management_attach" {
+  role       = aws_iam_role.route53_network.name
+  policy_arn = aws_iam_policy.route53_network.arn
+}
