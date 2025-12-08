@@ -175,19 +175,13 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
 
 
 resource "aws_fms_policy" "cloudfront_waf_policy" {
-  name                       = "cloudfront-default-protections"
+  name                        = "cloudfront-default-protections"
   delete_all_policy_resources = false
 
-  # -----------------------------
-  # Scope: which accounts / resources
-  # -----------------------------
-  # Adjust this for your org:
-  # - use include_map / exclude_map as needed
-  # - or use "orgunit" if you want to target OUs
+  # Which accounts to include – adjust as needed
   include_map {
     account = [
-      var.prod_account_id
-      # or just target all accounts in org and use exclusions
+      var.prod_account_id,
     ]
   }
 
@@ -195,99 +189,80 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
   remediation_enabled   = true
   exclude_resource_tags = false
 
-  # Match distributions by tag (optional, but recommended)
-  # If you want ALL distributions, you can leave resource_tags empty.
-  /* resource_tags = {
-    Name = "cloudfront-default"
-  } */
-
   security_service_policy_data {
     type = "WAFV2"
 
-    # This JSON describes the WebACL + WAFv2 behavior that FMS will enforce
     managed_service_data = jsonencode({
       type = "WAFV2"
 
-      # We’re letting FMS create and manage the WebACL for us
-      preProcessFirewallManagerRuleGroups = []
-      postProcessFirewallManagerRuleGroups = []
+      # ⬅️ THIS is what the error was about – must be top level
+      defaultAction = {
+        type = "ALLOW"
+      }
 
-      # Whether to override existing WAF on matching distributions
       overrideCustomerWebACLAssociation = true
 
-      # The actual WebACL config we want FMS to deploy
-      webacl = {
-        name        = "cloudfront-default-protections"
-        description = "Baseline + L7 DDoS protections for CloudFront"
-        defaultAction = {
-          type = "ALLOW"
-        }
-        visibilityConfig = {
-          cloudWatchMetricsEnabled = true
-          metricName               = "cloudfront-default-plus-l7-ddos"
-          sampledRequestsEnabled   = true
-        }
-
-        # --------------------------------
-        # Managed rule groups (same as your WebACL)
-        # --------------------------------
-        rules = [
-          {
-            name     = "AWSManagedRulesAmazonIpReputationList"
-            priority = 1
-            statement = {
-              managedRuleGroupStatement = {
-                vendorName = "AWS"
-                name       = "AWSManagedRulesAmazonIpReputationList"
-              }
-            }
-            overrideAction = {
-              none = {}
-            }
-            visibilityConfig = {
-              cloudWatchMetricsEnabled = true
-              metricName               = "AWSManagedRulesAmazonIpReputationList"
-              sampledRequestsEnabled   = true
-            }
-          },
-          {
-            name     = "AWSManagedRulesKnownBadInputsRuleSet"
-            priority = 2
-            statement = {
-              managedRuleGroupStatement = {
-                vendorName = "AWS"
-                name       = "AWSManagedRulesKnownBadInputsRuleSet"
-              }
-            }
-            overrideAction = {
-              none = {}
-            }
-            visibilityConfig = {
-              cloudWatchMetricsEnabled = true
-              metricName               = "AWSManagedRulesKnownBadInputsRuleSet"
-              sampledRequestsEnabled   = true
-            }
-          },
-          {
-            name     = "AWSManagedRulesCommonRuleSet"
-            priority = 3
-            statement = {
-              managedRuleGroupStatement = {
-                vendorName = "AWS"
-                name       = "AWSManagedRulesCommonRuleSet"
-              }
-            }
-            overrideAction = {
-              none = {}
-            }
-            visibilityConfig = {
-              cloudWatchMetricsEnabled = true
-              metricName               = "AWSManagedRulesCommonRuleSet"
-              sampledRequestsEnabled   = true
-            }
+      # Rules that run BEFORE any customer rule groups
+      preProcessRuleGroups = [
+        {
+          name          = "AWSManagedRulesAmazonIpReputationList"
+          priority      = 1
+          ruleGroupType = "ManagedRuleGroup"
+          managedRuleGroupIdentifier = {
+            vendorName          = "AWS"
+            managedRuleGroupName = "AWSManagedRulesAmazonIpReputationList"
           }
-        ]
-      }
+          # Same effect as override_action { none {} } in your WebACL
+          override = {
+            action = "NONE"
+          }
+          visibilityConfig = {
+            cloudWatchMetricsEnabled = true
+            metricName               = "AWSManagedRulesAmazonIpReputationList"
+            sampledRequestsEnabled   = true
+          }
+        },
+        {
+          name          = "AWSManagedRulesKnownBadInputsRuleSet"
+          priority      = 2
+          ruleGroupType = "ManagedRuleGroup"
+          managedRuleGroupIdentifier = {
+            vendorName          = "AWS"
+            managedRuleGroupName = "AWSManagedRulesKnownBadInputsRuleSet"
+          }
+          override = {
+            action = "NONE"
+          }
+          visibilityConfig = {
+            cloudWatchMetricsEnabled = true
+            metricName               = "AWSManagedRulesKnownBadInputsRuleSet"
+            sampledRequestsEnabled   = true
+          }
+        },
+        {
+          name          = "AWSManagedRulesCommonRuleSet"
+          priority      = 3
+          ruleGroupType = "ManagedRuleGroup"
+          managedRuleGroupIdentifier = {
+            vendorName          = "AWS"
+            managedRuleGroupName = "AWSManagedRulesCommonRuleSet"
+          }
+          override = {
+            action = "NONE"
+          }
+          visibilityConfig = {
+            cloudWatchMetricsEnabled = true
+            metricName               = "AWSManagedRulesCommonRuleSet"
+            sampledRequestsEnabled   = true
+          }
+        }
+      ]
+
+      # Nothing after customer rule groups (you can add more later if needed)
+      postProcessRuleGroups = []
+
+      # Optional – you can add loggingConfiguration here later
+      # loggingConfiguration = { ... }
     })
   }
 
