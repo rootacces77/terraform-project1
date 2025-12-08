@@ -213,8 +213,8 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
             managedRuleGroupName = "AWSManagedRulesAmazonIpReputationList"
           }
           # Same effect as override_action { none {} } in your WebACL
-          override = {
-            action = "NONE"
+          overrideAction = {
+            type = "NONE"
           }
           visibilityConfig = {
             cloudWatchMetricsEnabled = true
@@ -230,8 +230,8 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
             vendorName          = "AWS"
             managedRuleGroupName = "AWSManagedRulesKnownBadInputsRuleSet"
           }
-          override = {
-            action = "NONE"
+          overrideAction = {
+            type = "NONE"
           }
           visibilityConfig = {
             cloudWatchMetricsEnabled = true
@@ -247,8 +247,8 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
             vendorName          = "AWS"
             managedRuleGroupName = "AWSManagedRulesCommonRuleSet"
           }
-          override = {
-            action = "NONE"
+          overrideAction = {
+            type = "NONE"
           }
           visibilityConfig = {
             cloudWatchMetricsEnabled = true
