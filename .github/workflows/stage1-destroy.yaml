@@ -1,4 +1,4 @@
-name: Terraform Deploy Stage1 (All Accounts)
+name: Terraform Destroy Stage1 (All Accounts)
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
       - name: Terraform Apply (Management, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Management/Stage1
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
 
 
   network:
@@ -61,7 +61,7 @@ jobs:
       - name: Terraform Apply (Network, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Network/Stage1 
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
 
 
   prod:
@@ -89,7 +89,7 @@ jobs:
       - name: Terraform Apply (Prod, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Prod/Stage1 
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
 
 
   security:
@@ -116,4 +116,4 @@ jobs:
       - name: Terraform Apply (Security, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Security/Stage1 
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false

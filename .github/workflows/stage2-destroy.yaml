@@ -33,7 +33,7 @@ jobs:
       - name: Terraform Apply (Management, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Management/Stage2
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
 
 
   network:
@@ -61,7 +61,7 @@ jobs:
       - name: Terraform Apply (Network, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Network/Stage2 
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
 
 
   prod:
@@ -89,7 +89,7 @@ jobs:
       - name: Terraform Apply (Prod, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Prod/Stage2 
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
 
 
   security:
@@ -116,5 +116,5 @@ jobs:
       - name: Terraform Apply (Security, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Security/Stage2
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
 
