@@ -44,7 +44,7 @@ module "ec2_templates" {
   source = "./EC2-Templates"
 
   app_ec2_profile_arn = module.iam.app_ec2_profile_arn
-  #app_ami_id          = module.ec2_image_builder.
+  #app_ami_id          = module.ec2_image_builder.ec2_app_ami_id
   ec2_key_name        = module.kms.ec2_key_name
   app_ec2_sg_id       = module.security_groups.web_sg_id
 
@@ -67,6 +67,7 @@ module "ec2_templates" {
   key_name              = module.kms.ec2_key_name
   instance_profile_name = module.iam.app_ec2_profile_name
   security_group_id     = module.security_groups.db_sg_id
+  db_ami_id             = module.ec2_image_builder.ec2_db_ami_id
   
 } */
 

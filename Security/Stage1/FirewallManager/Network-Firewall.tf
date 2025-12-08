@@ -61,8 +61,10 @@ resource "aws_fms_policy" "network_fw" {
 
       # Orchestration controls how endpoints are created in VPCs
       networkFirewallOrchestrationConfig = {
-        singleFirewallEndpointPerVPC = false                # one per AZ
+        singleFirewallEndpointPerVPC = true               # one per AZ
         allowedIPV4CidrList          = []                   # or restrict to your CIDRs
+        routeManagementAction      = "ENFORCE"         # or "MONITOR" if you only want to observe
+        routeManagementTargetTypes = ["InternetGateway"]
       }
     })
   }

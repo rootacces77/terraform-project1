@@ -90,91 +90,7 @@ resource "aws_wafv2_web_acl" "cf_acl" {
 } 
 
 
-/*
-resource "aws_fms_policy" "cloudfront_waf_policy" {
-  name                               = "cloudfront-waf-protection"
-  remediation_enabled                = true
-  delete_unused_fm_managed_resources = true
-  exclude_resource_tags              = false
-
-  # Where to apply
-  include_map {
-    account = [var.prod_account_id]
-    # or:
-    # orgunit = [var.prod_ou_id]
-  }
-
-  # Tell FMS we’re managing CloudFront distributions
-  resource_type = "AWS::CloudFront::Distribution"
-
-  security_service_policy_data {
-    type = "WAFV2"
-
-    managed_service_data = jsonencode({
-      type                              = "WAFV2"
-      overrideCustomerWebACLAssociation = false
-
-      #  PRE-PROCESS RULE GROUPS – evaluated first
-
-      preProcessRuleGroups = [
-        # 1) Known Bad Inputs
-        {
-          ruleGroupType = "ManagedRuleGroup"
-          priority      = 10
-          overrideAction = { type = "NONE" }
-          managedRuleGroupIdentifier = {
-            vendorName           = "AWS"
-            managedRuleGroupName = "AWSManagedRulesKnownBadInputsRuleSet"
-            version              = null
-          }
-          excludeRules = []
-          ruleGroupArn = null
-        },
-
-        # 2) Common Rule Set (OWASP-ish)
-        {
-          ruleGroupType = "ManagedRuleGroup"
-          priority      = 20
-          overrideAction = { type = "NONE" }
-          managedRuleGroupIdentifier = {
-            vendorName           = "AWS"
-            managedRuleGroupName = "AWSManagedRulesCommonRuleSet"
-            version              = null
-          }
-          excludeRules = []
-          ruleGroupArn = null
-        }
-      ]
-
-      #  POST-PROCESS RULE GROUPS – evaluated last
-
-      postProcessRuleGroups = [
-        # 3) IP Reputation / Threat Intel
-        {
-          ruleGroupType = "ManagedRuleGroup"
-          priority      = 9901
-          overrideAction = { type = "NONE" }
-          managedRuleGroupIdentifier = {
-            vendorName           = "AWS"
-            managedRuleGroupName = "AWSManagedRulesAmazonIpReputationList"
-            version              = null
-          }
-          excludeRules = []
-          ruleGroupArn = null
-        }
-      ]
-
-      #  Default action if nothing matches the rule groups
-      defaultAction = {
-        type = "ALLOW"
-      }
-    })
-  }
-
-} */
-
-
-resource "aws_fms_policy" "cloudfront_waf_policy" {
+/*resource "aws_fms_policy" "cloudfront_waf_policy" {
   name                        = "cloudfront-default-protections123"
   delete_all_policy_resources = false
 
@@ -269,4 +185,4 @@ resource "aws_fms_policy" "cloudfront_waf_policy" {
   tags = {
     Name = "cloudfront-default-protections-l7-ddos"
   }
-}
+} */
