@@ -7,7 +7,7 @@ resource "aws_iam_role" "prod_route53_writer" {
       Effect = "Allow"
       Principal = {
         AWS = [ "arn:aws:iam::${local.prod_account_id}:root",
-                "arn:aws:iam::238407199949:role/GitHubActionsTerraformRole"
+                "arn:aws:iam::${local.management_account_id}:role/GitHubActionsTerraformRole"
           
 
         ]
@@ -92,7 +92,7 @@ resource "aws_iam_role" "route53_network" {
         Effect = "Allow",
         Principal = {
           AWS = [ "arn:aws:iam::${local.network_account_id}:root",
-          "arn:aws:iam::238407199949:role/GitHubActionsTerraformRole"
+          "arn:aws:iam::${local.management_account_id}:role/GitHubActionsTerraformRole"
                 ]
         },
         Action = "sts:AssumeRole"

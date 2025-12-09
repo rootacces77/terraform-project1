@@ -2,7 +2,7 @@ resource "aws_route53_record" "root_to_cloudfront" {
   provider = aws.route53-role
 
   zone_id = var.r53_zone_id
-  name    = "project-practice77.com"
+  name    = "project-practice.com"
   type    = "A"
 
   alias {
@@ -20,11 +20,11 @@ resource "aws_route53_record" "www_to_root" {
   provider = aws.route53-role
 
   zone_id = var.r53_zone_id
-  name    = "www.project-practice77.com"
+  name    = "www.project-practice.com"
   type    = "CNAME"
   ttl     = 300
 
   records = [
-    "project-practice77.com"
+    "project-practice.com"
   ]
 }
