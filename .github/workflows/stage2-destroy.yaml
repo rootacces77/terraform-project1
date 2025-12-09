@@ -8,37 +8,8 @@ permissions:
   contents: read
 
 jobs:
-  management:
-    runs-on: ubuntu-latest
-    needs: network
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure AWS via OIDC (Management)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
-          aws-region: us-east-1
-
-      - uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init (Management)
-        working-directory: Management/Stage2                # << ROOT DIR for Prod stack
-        run: terraform init -input=false
-
-      - name: Terraform Plan (Management)
-        working-directory: Management/Stage2
-        run: terraform plan -input=false
-
-      - name: Terraform Apply (Management, only on main)
-        if: github.ref == 'refs/heads/main'
-        working-directory: Management/Stage2
-        run: terraform destroy -auto-approve -input=false
-
-
   network:
     runs-on: ubuntu-latest
-    needs: prod
     steps:
       - uses: actions/checkout@v4
 
@@ -54,67 +25,9 @@ jobs:
         working-directory: Network/Stage2        # << ROOT DIR for Network stack
         run: terraform init -input=false
 
-      - name: Terraform Plan (Network)
-        working-directory: Network/Stage2 
-        run: terraform plan -input=false
-
       - name: Terraform Apply (Network, only on main)
         if: github.ref == 'refs/heads/main'
         working-directory: Network/Stage2 
         run: terraform destroy -auto-approve -input=false
 
-
-  prod:
-    runs-on: ubuntu-latest
-    needs: security
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure AWS via OIDC (Production)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
-          aws-region: us-east-1
-
-      - uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init (Prod)
-        working-directory: Prod/Stage2                 # << ROOT DIR for Prod stack
-        run: terraform init -input=false
-
-      - name: Terraform Plan (Prod)
-        working-directory: Prod/Stage2 
-        run: terraform plan -input=false
-
-      - name: Terraform Apply (Prod, only on main)
-        if: github.ref == 'refs/heads/main'
-        working-directory: Prod/Stage2 
-        run: terraform destroy -auto-approve -input=false
-
-
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure AWS via OIDC (Security)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::238407199949:role/GitHubActionsTerraformRole
-          aws-region: us-east-1
-
-      - uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init (Security)
-        working-directory: Security/Stage2                  # << ROOT DIR for Prod stack
-        run: terraform init -input=false
-
-      - name: Terraform Plan (Security)
-        working-directory: Security/Stage2 
-        run: terraform plan -input=false
-
-      - name: Terraform Apply (Security, only on main)
-        if: github.ref == 'refs/heads/main'
-        working-directory: Security/Stage2
-        run: terraform destroy -auto-approve -input=false
 

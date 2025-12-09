@@ -8,6 +8,7 @@ crash.log
 # Local-only directories
 .terraform/
 .terraform.lock.hcl
+backed/.terraform/
 Management/.terraform/
 Management/Stage1/.terraform/
 Management/Stage2/.terraform/
