@@ -10,7 +10,7 @@ phases:
         inputs:
           commands:
             - dnf -y update
-            - dnf -y install ansible-core python3 git jq unzip
+            - dnf -y install ansible-core python3 git jq unzip aide 
             - ansible-galaxy collection install ansible.posix community.general
             - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
             - unzip /tmp/awscliv2.zip -d /tmp

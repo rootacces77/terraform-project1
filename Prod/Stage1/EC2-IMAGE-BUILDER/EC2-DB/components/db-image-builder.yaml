@@ -10,7 +10,7 @@ phases:
         inputs:
           commands:
             - dnf -y update
-            - dnf -y install ansible-core python3 git jq unzip mariadb-server python-PyMySQL python3-cryptography
+            - dnf -y install ansible-core python3 git jq unzip mariadb-server python-PyMySQL python3-cryptography aide
             - ansible-galaxy collection install ansible.posix community.general community.crypto community.mysql
             - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
             - unzip /tmp/awscliv2.zip -d /tmp

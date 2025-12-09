@@ -9,7 +9,7 @@ httpd_req:
   - python3-pip
   - python3-cryptography
   - mod_wsgi
-  - mod_ssl
+ # - mod_ssl
   - mod_security
   - python3-mod_wsgi
 
