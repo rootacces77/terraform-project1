@@ -77,6 +77,8 @@ resource "aws_iam_role_policy_attachment" "prod_route53_writer_attach" {
 
 
 
+
+
 #Networking Route53 Role
 
 resource "aws_iam_role" "route53_network" {
@@ -111,32 +113,24 @@ resource "aws_iam_role" "route53_network" {
 
 resource "aws_iam_policy" "route53_network" {
   name        = "Route53ManagementPolicy"
-  description = "Allow cross-account Route53 hosted zone + registered domain NS management"
+  description = "Full access to Route53 hosted zones, records, and registered domains"
 
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-      # Hosted zone / record management
       {
-        Sid    = "Route53HostedZoneManagement",
+        Sid    = "Route53FullAccess",
         Effect = "Allow",
         Action = [
-          "route53:ListHostedZones",
-          "route53:ListHostedZonesByName",
-          "route53:GetHostedZone",
-          "route53:ListResourceRecordSets",
-          "route53:ChangeResourceRecordSets"
+          "route53:*"
         ],
         Resource = "*"
       },
-      # Registered domain nameserver updates
       {
-        Sid    = "Route53DomainNameserversUpdate",
+        Sid    = "Route53DomainsFullAccess",
         Effect = "Allow",
         Action = [
-          "route53domains:ListDomains",
-          "route53domains:GetDomainDetail",
-          "route53domains:UpdateDomainNameservers"
+          "route53domains:*"
         ],
         Resource = "*"
       }
