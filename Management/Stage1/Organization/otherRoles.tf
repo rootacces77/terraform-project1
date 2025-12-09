@@ -89,7 +89,9 @@ resource "aws_iam_role" "route53_network" {
       {
         Effect = "Allow",
         Principal = {
-          AWS = "arn:aws:iam::${local.network_account_id}:root"
+          AWS = [ "arn:aws:iam::${local.network_account_id}:root",
+          "arn:aws:iam::238407199949:role/GitHubActionsTerraformRole"
+                ]
         },
         Action = "sts:AssumeRole"
       }
