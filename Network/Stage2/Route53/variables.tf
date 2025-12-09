@@ -33,3 +33,9 @@ variable "ec2_db_dns" {
     description = "DNS of DB EC2"
   
 }
+
+variable "network_route53_role_arn" {
+    type = string
+    description = "Route53 Role ARN"
+  
+}

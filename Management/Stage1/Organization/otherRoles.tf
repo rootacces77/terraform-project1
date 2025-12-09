@@ -104,7 +104,7 @@ resource "aws_iam_role" "route53_network" {
 }
 
 ########################
-# IAM Policy for Route53 Management
+# IAM Policy for Route53 Network
 ########################
 
 resource "aws_iam_policy" "route53_network" {
