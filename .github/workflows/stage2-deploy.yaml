@@ -10,7 +10,6 @@ permissions:
 jobs:
   network:
     runs-on: ubuntu-latest
-    needs: management
     steps:
       - uses: actions/checkout@v4
 
