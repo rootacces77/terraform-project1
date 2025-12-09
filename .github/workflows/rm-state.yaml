@@ -33,4 +33,4 @@ jobs:
 
       - name: Terraform Destroy (Prod)
      #   run: terraform state rm 'module.ec2-image-builder.aws_imagebuilder_image.web_image' 
-        run: terraform state rm 'module.Route53'
+        run: terraform state rm 'module.route53'
