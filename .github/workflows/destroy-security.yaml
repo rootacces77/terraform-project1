@@ -32,4 +32,4 @@ jobs:
         run: terraform init -input=false
 
       - name: Terraform Destroy (Sec)
-        run: terraform destroy -auto-approve -target=module.firewall_manager
+        run: terraform destroy -auto-approve
