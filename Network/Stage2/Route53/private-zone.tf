@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "project_practice_private" {
-  provider = aws.route53-role
+ # provider = aws.route53-role
 
   name       = "project-practice.com"
 
@@ -22,7 +22,7 @@ resource "aws_route53_zone" "project_practice_private" {
 ########################
 
 resource "aws_route53_record" "database_db_private" {
-  provider = aws.route53-role
+ # provider = aws.route53-role
 
   zone_id = aws_route53_zone.project_practice_private.zone_id
   name    = "database.project-practice.com"
