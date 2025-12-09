@@ -2,6 +2,8 @@ module "ec2_image_builder" {
   source = "./EC2-IMAGE-BUILDER"
 
   secret_reader_policy_arn = module.iam.secret_reader_policy_arn
+
+  depends_on = [ module.secret_manager ]
 } 
 
 module "iam" {
