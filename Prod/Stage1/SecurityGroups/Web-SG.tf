@@ -4,9 +4,9 @@ resource "aws_security_group" "prod_app_web" {
   vpc_id      = data.terraform_remote_state.network.outputs.vpc_app_id
 
   ingress {
-    description              = "HTTPS from ALB only"
-    from_port                = 443
-    to_port                  = 443
+    description              = "HTTP from ALB only"
+    from_port                = 80
+    to_port                  = 80
     protocol                 = "tcp"
     security_groups          = [aws_security_group.prod_app_alb.id] 
   }
