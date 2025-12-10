@@ -15,6 +15,10 @@ resource "aws_launch_template" "app_template" {
               #!/bin/bash
               dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
               systemctl enable --now amazon-ssm-agent
+              sed -i "/^if __name__ == '__main__':/i \
+              @app.route('/health')\ndef health():\n    return \"OK\", 200\n" /web-data/sakila-demo/sakila_demo.py
+
+
               EOF
   )
 
