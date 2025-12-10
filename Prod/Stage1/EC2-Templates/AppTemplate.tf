@@ -13,12 +13,8 @@ resource "aws_launch_template" "app_template" {
 
   user_data = base64encode(<<-EOF
               #!/bin/bash
-              yum update -y
-              amazon-linux-extras install -y nginx1
-              systemctl enable nginx
-              systemctl start nginx
-
-              echo "<h1> instance \$(hostname)</h1>" > /usr/share/nginx/html/index.html
+              dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+              systemctl enable --now amazon-ssm-agent
               EOF
   )
 

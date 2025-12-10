@@ -9,9 +9,9 @@ user_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhuCNqtfB/3G6kC6CYLuP1+7xQ
 
 db_user: "DBUSER"
 db_password: "DBPASSWORD"
-database_ip: 'database.project-practice77.com'
-webserver_domain: 'project-practice77.com'
-webserver_alias: "www.project-practice77.com"
+database_ip: 'database.project-practice.com'
+webserver_domain: 'project-practice.com'
+webserver_alias: "www.project-practice.com"
 
 
 

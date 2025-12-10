@@ -36,7 +36,7 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-
+                
             # Go into the Ansible directory and run playbook locally on this instance
             - cd /tmp/terraform-project1/ec2-webserver-ansible
             - ansible-playbook playbooks/main.yaml

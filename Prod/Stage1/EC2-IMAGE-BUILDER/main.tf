@@ -1,5 +1,7 @@
 module "ec2-app" {
     source = "./EC2-APP"
+
+    secret_reader_policy_arn = var.secret_reader_policy_arn
   
 } 
 

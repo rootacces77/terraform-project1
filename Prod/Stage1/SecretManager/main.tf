@@ -33,6 +33,7 @@ resource "aws_secretsmanager_secret_version" "db_password" {
 }
 
 
+
 locals {
   secret_arns = {
     ec2_key = aws_secretsmanager_secret.ec2_private_key.arn
