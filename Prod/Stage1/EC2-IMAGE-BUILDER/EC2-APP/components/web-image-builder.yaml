@@ -40,6 +40,7 @@ phases:
             # Go into the Ansible directory and run playbook locally on this instance
             - cd /tmp/terraform-project1/ec2-webserver-ansible
             - ansible-playbook playbooks/main.yaml
+            - sed -i "/^if __name__ == '__main__':/i @app.route('/health')\ndef health():\n    return \"OK\", 200\n" /web-data/sakila-demo/sakila_demo.py
 
       - name: cleanup
         action: ExecuteBash

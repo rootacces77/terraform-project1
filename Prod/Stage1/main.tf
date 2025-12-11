@@ -50,17 +50,8 @@ module "ec2_templates" {
   ec2_key_name        = module.kms.ec2_key_name
   app_ec2_sg_id       = module.security_groups.web_sg_id
 
-  
 }
 
-module "asg" {
-  source = "./ASG-APP"
-
-  app_private_subnet_ids = data.terraform_remote_state.network.outputs.prod_app_private_subnets_ids
-  asg_target_group_arn   = module.alb.target_group_id
-  app_template_id        = module.ec2_templates.app_ec2_template_id
-  
-}
 
 module "ec2-db" {
   source = "./EC2-DB"

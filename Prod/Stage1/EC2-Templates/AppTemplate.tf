@@ -15,16 +15,16 @@ resource "aws_launch_template" "app_template" {
               #!/bin/bash
               dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
               systemctl enable --now amazon-ssm-agent
-              DBUSER=$(aws secretsmanager get-secret-value --secret-id db/username --query 'SecretString' --output text)
-              DBPASSWORD=$(aws secretsmanager get-secret-value --secret-id db/password --query 'SecretString' --output text)
+              #DBUSER=$(aws secretsmanager get-secret-value --secret-id db/username --query 'SecretString' --output text)
+              #DBPASSWORD=$(aws secretsmanager get-secret-value --secret-id db/password --query 'SecretString' --output text)
 
 
-              sed -i "s/user=''/user='$DBUSER'/" /web-data/sakila-demo/sakila_demo.py
-              sed -i "s/passwd=''/passwd='$DBPASSWORD'/" /web-data/sakila-demo/sakila_demo.py
+              #sed -i "s/user=''/user='$DBUSER'/" /web-data/sakila-demo/sakila_demo.py
+              #sed -i "s/passwd=''/passwd='$DBPASSWORD'/" /web-data/sakila-demo/sakila_demo.py
 
-              sed -i "/^if __name__ == '__main__':/i \
-              @app.route('/health')\ndef health():\n    return \"OK\", 200\n" /web-data/sakila-demo/sakila_demo.py
-              sytemctl restart httpd
+              #sed -i "/^if __name__ == '__main__':/i \
+              #@app.route('/health')\ndef health():\n    return \"OK\", 200\n" /web-data/sakila-demo/sakila_demo.py
+              #sytemctl restart httpd
 
               EOF
   )
