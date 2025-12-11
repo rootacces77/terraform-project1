@@ -12,6 +12,7 @@ module "cloudtrail" {
     source = "./CloudTrail"
 
     s3_cloudtrail_logs_id = module.s3.s3_cloudtrail_logs_id
+    management_account_id = local.management_account_id
   
 }
 

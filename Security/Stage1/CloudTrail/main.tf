@@ -1,4 +1,5 @@
 resource "aws_cloudtrail" "org" {
+  provider = aws.management
 
   name                          = var.trail_name
   s3_bucket_name                = var.s3_cloudtrail_logs_id
