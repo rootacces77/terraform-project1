@@ -46,5 +46,5 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-            - dnf -y remove ansible git
+            - dnf -y remove ansible-core git
             - rm -rf /tmp/terraform-project1 /tmp/awscliv2.zip
