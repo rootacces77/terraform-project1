@@ -52,9 +52,13 @@ jobs:
         working-directory: Prod/Stage2                 # << ROOT DIR for Prod stack
         run: terraform init -input=false
 
+      - name: Terraform Plan (Prod)
+        working-directory: Prod/Stage2
+        run: terraform plan -input=false
+
       - name: Terraform Apply (Prod, only on main)
         if: github.ref == 'refs/heads/main'
-        working-directory: Prod/Stage1 
+        working-directory: Prod/Stage2 
         run: terraform destroy -auto-approve -input=false
 
   security:
