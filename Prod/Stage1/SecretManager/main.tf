@@ -58,7 +58,6 @@ resource "aws_secretsmanager_secret_policy" "ec2_secret_policy" {
         Principal = {
           AWS = [
             "arn:aws:iam::${data.terraform_remote_state.management.outputs.prod_account_id}:role/${var.admin_role_name}",
-            #"arn:aws:iam::${data.terraform_remote_state.management.outputs.prod_account_id}:role/${var.ec2_secrets_role_name}",
             "${var.ec2_secrets_role_arn}",
             "${var.image_builder_role_arn}"
           ]
@@ -71,24 +70,7 @@ resource "aws_secretsmanager_secret_policy" "ec2_secret_policy" {
       },
 
       # Explicitly deny everyone else from reading the secret
-      {
-        Sid    = "DenyOthersReadingSecret",
-        Effect = "Deny",
-        Principal = "*",
-        Action = [
-          "secretsmanager:GetSecretValue",
-          "secretsmanager:DescribeSecret"
-        ],
-        Resource = "*",
-        Condition = {
-          StringNotEquals = {
-            "aws:PrincipalArn" = [
-              "arn:aws:iam::${data.terraform_remote_state.management.outputs.prod_account_id}:role/${var.admin_role_name}",
-              "${var.ec2_secrets_role_arn}"
-            ]
-          }
-        }
-      }
+      
     ]
   })
 }
