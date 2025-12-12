@@ -26,46 +26,8 @@ data "terraform_remote_state" "network" {
 }
 
 locals {
-  prod_account_id = data.terraform_remote_state.management.outputs.prod_account_id
+  prod_account_id        = data.terraform_remote_state.management.outputs.prod_account_id
   app_private_subnet_ids = data.terraform_remote_state.network.outputs.prod_app_private_subnets_ids
   asg_target_group_arn   = data.terraform_remote_state.prod.outputs.target_group_id
   app_template_id        = data.terraform_remote_state.prod.outputs.app_ec2_template_id
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-variable "app_private_subnet_ids" {
-    type        = list(string)
-    description = "Auto Scaling Group Subnets"
-  
-}
-
-variable "asg_target_group_arn" {
-  type        = string
-  description = "Target Group ARN of ASG"
-}
-
-variable "app_template_id" {
-  type        = string
-  description = "ID of APP template"
 }
