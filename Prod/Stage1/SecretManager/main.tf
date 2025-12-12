@@ -59,7 +59,8 @@ resource "aws_secretsmanager_secret_policy" "ec2_secret_policy" {
           AWS = [
             "arn:aws:iam::${data.terraform_remote_state.management.outputs.prod_account_id}:role/${var.admin_role_name}",
             #"arn:aws:iam::${data.terraform_remote_state.management.outputs.prod_account_id}:role/${var.ec2_secrets_role_name}",
-            "${var.ec2_secrets_role_arn}"
+            "${var.ec2_secrets_role_arn}",
+            "${var.web_builder_role_arn}"
           ]
         },
         Action = [

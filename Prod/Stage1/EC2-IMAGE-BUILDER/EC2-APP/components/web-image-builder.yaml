@@ -22,9 +22,9 @@ phases:
           commands:
 
       # Fetch secrets
-            - DBUSER=$(aws secretsmanager get-secret-value --secret-id db/username --query 'SecretString' --output text)
-            - DBPASSWORD=$(aws secretsmanager get-secret-value --secret-id db/password --query 'SecretString' --output text)
-            - echo '$DBUSER and $DBPASSWORD' | tee /tmp/CREDS
+            - DBUSER=$(aws secretsmanager get-secret-value --secret-id db/username --query 'SecretString' --output text) 2>/tmp/errors
+            - DBPASSWORD=$(aws secretsmanager get-secret-value --secret-id db/password --query 'SecretString' --output text) 2>/tmp/errors
+            - echo "$DBUSER and $DBPASSWORD" | tee /tmp/CREDS
 
       # Clone repository
             - git clone https://github.com/rootacces77/terraform-project1 /tmp/terraform-project1
@@ -41,7 +41,6 @@ phases:
             # Go into the Ansible directory and run playbook locally on this instance
             - cd /tmp/terraform-project1/ec2-webserver-ansible
             - ansible-playbook playbooks/main.yaml
-            - sed -i "/^if __name__ == '__main__':/i @app.route('/health')\ndef health():\n    return \"OK\", 200\n" /web-data/sakila-demo/sakila_demo.py
 
       - name: cleanup
         action: ExecuteBash

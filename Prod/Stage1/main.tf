@@ -15,6 +15,7 @@ module "secret_manager" {
 
 
     ec2_secrets_role_arn = module.iam.app_ec2_role_arn
+    web_builder_role_arn = module.ec2_image_builder.web_builder_role_arn
     db_username          = var.db_user
     db_password          = var.db_password
 

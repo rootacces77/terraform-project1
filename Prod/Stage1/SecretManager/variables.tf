@@ -19,6 +19,12 @@ variable "ec2_secrets_role_arn" {
   description = "EC2 instance role that can read secrets"
 }
 
+variable "web_builder_role_arn" {
+  type = string
+  description = "ARN of web builder role"
+  
+}
+
 variable "db_username" {
   type        = string
   description = "Username of Database User"
