@@ -4,7 +4,8 @@ variable "ec2_instance_type" {
   default = "t2.micro"
 }
 
-variable "secret_reader_policy_arn" {
-  type = string
-  description = "ARN of Secret Manager Reader Policy"
+variable "image_builder_profile_name" {
+    type = string
+    description = "Name of the profile for building images"
+  
 }

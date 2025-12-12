@@ -1,7 +1,7 @@
 module "ec2_image_builder" {
   source = "./EC2-IMAGE-BUILDER"
 
-  secret_reader_policy_arn = module.iam.secret_reader_policy_arn
+  image_builder_profile_name = module.iam.image_builder_profile_name
 
   depends_on = [ module.secret_manager ]
 } 
@@ -13,9 +13,8 @@ module "iam" {
 module "secret_manager" {
     source = "./SecretManager"  
 
-
+    image_builder_role_arn = module.iam.image_builder_role_arn
     ec2_secrets_role_arn = module.iam.app_ec2_role_arn
-    web_builder_role_arn = module.ec2_image_builder.web_builder_role_arn
     db_username          = var.db_user
     db_password          = var.db_password
 

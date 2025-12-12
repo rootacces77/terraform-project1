@@ -14,8 +14,13 @@ output "app_ec2_role_arn" {
   
 }
 
-output "secret_reader_policy_arn" {
-  value = aws_iam_policy.ec2_secrets_reader.arn
-  description = "ARN of Secret Manager Reader Policy"
+output "image_builder_profile_name" {
+  value       = aws_iam_instance_profile.builder_profile
+  description = "EC2 Profile name for building images"
+}
 
+output "image_builder_role_arn" {
+  value = aws_iam_role.builder_role
+  description = "ARN of image builder role"
+  
 }

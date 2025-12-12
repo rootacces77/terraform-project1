@@ -1,5 +1,5 @@
-variable "secret_reader_policy_arn" {
+variable "image_builder_profile_name" {
     type = string
-    description = "ARN of Secret Manager Reader Policy"
+    description = "Name of the profile for building images"
   
 }
