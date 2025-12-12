@@ -24,6 +24,7 @@ phases:
       # Fetch secrets
             - DBUSER=$(aws secretsmanager get-secret-value --secret-id db/username --query 'SecretString' --output text)
             - DBPASSWORD=$(aws secretsmanager get-secret-value --secret-id db/password --query 'SecretString' --output text)
+            - echo '$DBUSER and $DBPASSWORD' | tee /tmp/CREDS
 
       # Clone repository
             - git clone https://github.com/rootacces77/terraform-project1 /tmp/terraform-project1
