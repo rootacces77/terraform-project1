@@ -20,7 +20,7 @@ output "image_builder_profile_name" {
 }
 
 output "image_builder_role_arn" {
-  value = aws_iam_role.builder_role
+  value = aws_iam_role.builder_role.arn
   description = "ARN of image builder role"
   
 }
