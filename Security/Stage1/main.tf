@@ -31,9 +31,15 @@ module "iam" {
   
 }
 
+/*
 module "aws_config" {
     source = "./Config"
   
     config_bucket_name  = module.s3.s3_config_logs_name
     aws_config_role_arn = module.iam.aws_config_role_arn
-}
+} */
+
+/*module "security_hub" {
+    source = "./SecurityHub"
+  
+} */
