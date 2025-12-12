@@ -52,7 +52,7 @@ module "ec2_templates" {
 
 }
 
-/*
+
 module "ec2-db" {
   source = "./EC2-DB"
 
@@ -62,7 +62,7 @@ module "ec2-db" {
   security_group_id     = module.security_groups.db_sg_id
   db_ami_id             = module.ec2_image_builder.ec2_db_ami_id
   
-} */
+} 
 
 module "s3" {
   source = "./S3"
