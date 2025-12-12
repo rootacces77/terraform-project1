@@ -15,7 +15,7 @@ output "app_ec2_role_arn" {
 }
 
 output "image_builder_profile_name" {
-  value       = aws_iam_instance_profile.builder_profile
+  value       = aws_iam_instance_profile.builder_profile.name
   description = "EC2 Profile name for building images"
 }
 
