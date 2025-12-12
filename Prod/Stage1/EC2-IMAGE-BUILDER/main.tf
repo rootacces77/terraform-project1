@@ -12,3 +12,4 @@ module "ec2-db" {
     secret_reader_policy_arn = var.secret_reader_policy_arn
   
 } */
+#+OUTPUTS
