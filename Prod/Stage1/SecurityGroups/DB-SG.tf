@@ -11,6 +11,14 @@ resource "aws_security_group" "prod_app_db" {
     security_groups          = [aws_security_group.prod_app_web.id] 
   }
 
+   egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
   tags = {
     Name        = "PROD-APP-DB-SG"
     Environment = "PROD"

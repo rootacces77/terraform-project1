@@ -11,7 +11,7 @@ data "terraform_remote_state" "security" {
   backend = "s3"
   config = {
     bucket = "tf-state-project-practice77"
-    key    = "accounts/management/terraform.tfstate"
+    key    = "accounts/security/terraform.tfstate"
     region = "us-east-1"
   }
 }
