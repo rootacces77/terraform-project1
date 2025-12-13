@@ -18,13 +18,29 @@ output "ec2_db_dns" {
 } 
 
 
-output "app_ec2_template_id" {
-    value       = module.ec2_templates.app_ec2_template_id
-    description = "ID of APP Template"
-}
-
 output "target_group_id" {
     value = module.alb.target_group_id
     description = "TargetGroup"
   
 }
+
+output "app_ec2_profile_arn" {
+  value       = module.iam.app_ec2_profile_arn
+  description = "EC2 Profile for App"
+}
+
+output "ec2_key_name" {
+  value = module.kms.ec2_key_name
+  description = "Name of ec2_key"
+}
+
+output "web_sg_id" {
+    value       = module.security_groups.web_sg_id
+    description = "ID of Web Server Security Group"
+}
+
+output "image_builder_profile_name" {
+  value       = module.iam.image_builder_profile_name
+  description = "EC2 Profile name for building images"
+}
+
