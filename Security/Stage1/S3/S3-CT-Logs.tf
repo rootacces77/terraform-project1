@@ -91,7 +91,7 @@ data "aws_iam_policy_document" "cloudtrail_bucket" {
 
     actions   = ["s3:PutObject"]
     resources = [
-      "${module.s3_cloudtrail_logs.s3_bucket_arn}/AWSLogs/*",
+      "${module.s3_cloudtrail_logs.s3_bucket_arn}/*",
     ]
 
     # CloudTrail requires this ACL for central log buckets
