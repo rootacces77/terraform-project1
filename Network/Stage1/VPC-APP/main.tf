@@ -205,12 +205,6 @@ resource "aws_route_table_association" "prod_app_security" {
   subnet_id      = each.value.id
   route_table_id = aws_route_table.prod_app_security.id
 }
-/*
-resource "aws_route" "firewall_to_nat" {
-  route_table_id         = aws_route_table.firewall_subnets.id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = 
-} */
 
 
 ########################

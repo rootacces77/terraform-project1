@@ -7,8 +7,6 @@ resource "aws_ram_resource_share" "security_subnets_shared" {
 resource "aws_ram_principal_association" "security_access" {
   resource_share_arn = aws_ram_resource_share.security_subnets_shared.arn
   principal          = local.security_account_id
-  #                OR -> just prod account ID as string:
-  # principal = "322059755827"
 }
 
 

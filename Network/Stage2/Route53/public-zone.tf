@@ -12,9 +12,6 @@ resource "aws_route53_record" "root_to_cloudfront" {
   }
 }
 
-########################
-# CNAME – www.project-practice77.com → project-practice77.com
-########################
 
 resource "aws_route53_record" "www_to_root" {
   provider = aws.route53-role

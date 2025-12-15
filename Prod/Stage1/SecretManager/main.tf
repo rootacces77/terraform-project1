@@ -46,7 +46,6 @@ resource "aws_secretsmanager_secret_policy" "ec2_secret_policy" {
   for_each = local.secret_arns
   secret_arn = each.value
 
-#    secret_arn = aws_secretsmanager_secret.ec2_private_key.arn
 
   policy = jsonencode({
     Version = "2012-10-17",

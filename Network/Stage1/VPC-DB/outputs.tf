@@ -1,9 +1,3 @@
-/*output "prod_db_vpc_id" {
-  value = module.vpc_prod_db.id
-  description = "VPC DB ID"
-
-} */
-
 output "vpc_id" {
   value = aws_vpc.vpc_prod_db.id
   description = "VPC DB ID"

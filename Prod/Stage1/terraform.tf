@@ -13,7 +13,6 @@ provider "aws" {
   region = "us-east-1"
 
   assume_role {
-    # This is the role you created IN THE PROD ACCOUNT
     role_arn     = "arn:aws:iam::${local.prod_account_id}:role/AdminRole"
     session_name = "tf-prod"
   }
