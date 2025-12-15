@@ -17,7 +17,7 @@ The AWS environment is structured as a **multi-account setup**:
 ---
 
 ## Diagram
-Project diagrams are stored under diagram/*.You can find multiple diagram formats there.
+Project diagrams are stored under diagram/* with multiple formats.
 
 
 ---
