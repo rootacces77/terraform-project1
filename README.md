@@ -58,6 +58,14 @@ Responsible for shared networking and connectivity:
   - **Production workloads**
 
 ## High-Level Architecture
+### Deployment Flow (Git → AWS)
+1. Source code and infrastructure definitions are stored in **GitHub**
+2. **GitHub OIDC** is used to authenticate securely to AWS (no static credentials)
+3. **Terraform** provisions AWS infrastructure
+4. **EC2 Image Builder** is used to build **custom AMIs**
+   - AMIs are created using predefined recipes
+   - **Ansible** runs during image build to configure the system and application
+
 ### Traffic Flow (Client → Application)
 1. Clients connect using a **domain name registered in an AWS account**
 2. Requests go through **Amazon CloudFront**
@@ -65,7 +73,18 @@ Responsible for shared networking and connectivity:
    - **ALB** (Application Load Balancer) for dynamic web/application traffic
    - **S3** for **static files**
 
----
+
+## Logging, Availability, and Scalability
+- **All logs are centralized and stored in S3 buckets**, including:
+  - Application logs
+  - Security logs
+  - Service and infrastructure logs
+- The **web application layer** is:
+  - **Highly available**
+  - **Horizontally scalable** (behind an Application Load Balancer)
+
+## Important Note
+> In this project, the **database is deployed on EC2 instances**.  
 
 
 ![Alt text](diagram/project1.png)
