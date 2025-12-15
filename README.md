@@ -1,10 +1,71 @@
-# terraform-project1
-Diagram of the project is located at diagram/*.Different types of files can be found there .png .pdf .vsdx.
+# Multi-Account AWS Web + Database Project (Terraform + Ansible + GitHub OIDC)
 
-It is a basic web/database project with extra services,security and network isolation.Github is used as OIDC,terraform as IaC and Ansible for configuring EC2 instances.Project is multiaccount project(Management,Network,Security,Prod).
+## Overview
+This project is a **basic web/database architecture** enhanced with **extra services**, **security controls**, and **network isolation**.
 
-Clients connect using web browser and domain name registered in account.Connection goes through CloudFront which has two origins ALB and S3 (for static files).CloudFront is protected using WAF and Shield.CF connection with ALB is secured with header secret.Project uses Firewall Manager,AWS Config,Cloud Trail and Security Hub which is managed through Security account.Network account is used to deploy VPC's and share them using RAM.Network account is also responsible for routes,connection between VPC's and Route53.Everythin else is deployed within Prod account.
+It uses:
+- **GitHub OIDC** for authentication/authorization to AWS
+- **Terraform** as Infrastructure as Code (IaC)
+- **Ansible** for configuring **EC2 instances**
 
-EC2 Image Builder for Web Image is moved to Stage2 since building two images at same time has chance to cause error (Same package manager and installing multiple things).
+The AWS environment is structured as a **multi-account setup**:
+- **Management**
+- **Network**
+- **Security**
+- **Prod**
+
+---
+
+## Diagram
+Project diagrams are stored under diagram/*.You can find multiple diagram formats there.
+
+
+---
+
+## Account Responsibilities
+### Management Account
+- Organization-level management (root of the multi-account structure)
+
+### Security Account
+- Central security governance and monitoring:
+  - Firewall Manager
+  - Config
+  - CloudTrail
+  - Security Hub
+
+### Network Account
+Responsible for shared networking and connectivity:
+- Deploying **VPCs**
+- Sharing VPC resources via **AWS RAM**
+- Managing **routes**
+- Managing **connectivity between VPCs**
+- Managing **Route 53**
+
+### Prod Account
+- Hosts **everything else**, including:
+  - Application workloads
+  - Databases
+  - CloudFront distribution components (as applicable)
+  - ALB + EC2 + S3 content (as applicable)
+
+---
+
+## Notes
+- The project is designed with **network isolation** and **security best practices** in mind.
+- The goal is a clean separation of concerns between:
+  - **Network operations**
+  - **Security governance**
+  - **Production workloads**
+
+## High-Level Architecture
+### Traffic Flow (Client → Application)
+1. Clients connect using a **domain name registered in an AWS account**
+2. Requests go through **Amazon CloudFront**
+3. CloudFront uses **two origins**:
+   - **ALB** (Application Load Balancer) for dynamic web/application traffic
+   - **S3** for **static files**
+
+---
+
 
 ![Alt text](diagram/project1.png)
